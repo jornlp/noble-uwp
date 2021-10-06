@@ -1,13 +1,4 @@
   
-Color = (function () {
-  var cls = function Color() {
-    };
-  return cls;
-}) ();
-exports.Color = Color;
-
-
-  
 Rect = (function () {
   var cls = function Rect() {
     };
@@ -16,13 +7,22 @@ Rect = (function () {
 exports.Rect = Rect;
 
 
-_DevicePickerDisplayStatusOptions = function () {
-  this.none = 0;
-  this.showProgress = 1;
-  this.showDisconnectButton = 2;
-  this.showRetryButton = 3;
+  
+Color = (function () {
+  var cls = function Color() {
+    };
+  return cls;
+}) ();
+exports.Color = Color;
+
+
+_DeviceAccessStatus = function () {
+  this.unspecified = 0;
+  this.allowed = 1;
+  this.deniedByUser = 2;
+  this.deniedBySystem = 3;
 }
-exports.DevicePickerDisplayStatusOptions = new _DevicePickerDisplayStatusOptions();
+exports.DeviceAccessStatus = new _DeviceAccessStatus();
 
 _DeviceClass = function () {
   this.all = 0;
@@ -35,27 +35,6 @@ _DeviceClass = function () {
 }
 exports.DeviceClass = new _DeviceClass();
 
-_DeviceWatcherStatus = function () {
-  this.created = 0;
-  this.started = 1;
-  this.enumerationCompleted = 2;
-  this.stopping = 3;
-  this.stopped = 4;
-  this.aborted = 5;
-}
-exports.DeviceWatcherStatus = new _DeviceWatcherStatus();
-
-_Panel = function () {
-  this.unknown = 0;
-  this.front = 1;
-  this.back = 2;
-  this.top = 3;
-  this.bottom = 4;
-  this.left = 5;
-  this.right = 6;
-}
-exports.Panel = new _Panel();
-
 _DeviceInformationKind = function () {
   this.unknown = 0;
   this.deviceInterface = 1;
@@ -65,15 +44,9 @@ _DeviceInformationKind = function () {
   this.associationEndpoint = 5;
   this.associationEndpointContainer = 6;
   this.associationEndpointService = 7;
+  this.devicePanel = 8;
 }
 exports.DeviceInformationKind = new _DeviceInformationKind();
-
-_DeviceWatcherEventKind = function () {
-  this.add = 0;
-  this.update = 1;
-  this.remove = 2;
-}
-exports.DeviceWatcherEventKind = new _DeviceWatcherEventKind();
 
 _DevicePairingKinds = function () {
   this.none = 0;
@@ -81,8 +54,17 @@ _DevicePairingKinds = function () {
   this.displayPin = 2;
   this.providePin = 3;
   this.confirmPinMatch = 4;
+  this.providePasswordCredential = 5;
 }
 exports.DevicePairingKinds = new _DevicePairingKinds();
+
+_DevicePairingProtectionLevel = function () {
+  this.default = 0;
+  this.none = 1;
+  this.encryption = 2;
+  this.encryptionAndAuthentication = 3;
+}
+exports.DevicePairingProtectionLevel = new _DevicePairingProtectionLevel();
 
 _DevicePairingResultStatus = function () {
   this.paired = 0;
@@ -108,6 +90,14 @@ _DevicePairingResultStatus = function () {
 }
 exports.DevicePairingResultStatus = new _DevicePairingResultStatus();
 
+_DevicePickerDisplayStatusOptions = function () {
+  this.none = 0;
+  this.showProgress = 1;
+  this.showDisconnectButton = 2;
+  this.showRetryButton = 3;
+}
+exports.DevicePickerDisplayStatusOptions = new _DevicePickerDisplayStatusOptions();
+
 _DeviceUnpairingResultStatus = function () {
   this.unpaired = 0;
   this.alreadyUnpaired = 1;
@@ -117,21 +107,88 @@ _DeviceUnpairingResultStatus = function () {
 }
 exports.DeviceUnpairingResultStatus = new _DeviceUnpairingResultStatus();
 
-_DevicePairingProtectionLevel = function () {
-  this.default = 0;
-  this.none = 1;
-  this.encryption = 2;
-  this.encryptionAndAuthentication = 3;
+_DeviceWatcherEventKind = function () {
+  this.add = 0;
+  this.update = 1;
+  this.remove = 2;
 }
-exports.DevicePairingProtectionLevel = new _DevicePairingProtectionLevel();
+exports.DeviceWatcherEventKind = new _DeviceWatcherEventKind();
 
-_DeviceAccessStatus = function () {
-  this.unspecified = 0;
-  this.allowed = 1;
-  this.deniedByUser = 2;
-  this.deniedBySystem = 3;
+_DeviceWatcherStatus = function () {
+  this.created = 0;
+  this.started = 1;
+  this.enumerationCompleted = 2;
+  this.stopping = 3;
+  this.stopped = 4;
+  this.aborted = 5;
 }
-exports.DeviceAccessStatus = new _DeviceAccessStatus();
+exports.DeviceWatcherStatus = new _DeviceWatcherStatus();
+
+_Panel = function () {
+  this.unknown = 0;
+  this.front = 1;
+  this.back = 2;
+  this.top = 3;
+  this.bottom = 4;
+  this.left = 5;
+  this.right = 6;
+}
+exports.Panel = new _Panel();
+
+DeviceAccessChangedEventArgs = (function () {
+  var cls = function DeviceAccessChangedEventArgs() {
+    this.status = new DeviceAccessStatus();
+    this.id = new String();
+  };
+  
+
+  return cls;
+}) ();
+exports.DeviceAccessChangedEventArgs = DeviceAccessChangedEventArgs;
+
+DeviceAccessInformation = (function () {
+  var cls = function DeviceAccessInformation() {
+    this.currentStatus = new DeviceAccessStatus();
+  };
+  
+
+  cls.createFromId = function createFromId(deviceId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="deviceId" type="String">A param.</param>
+    /// <returns type="DeviceAccessInformation" />
+    /// </signature>
+    return new DeviceAccessInformation();
+  }
+
+
+  cls.createFromDeviceClassId = function createFromDeviceClassId(deviceClassId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="deviceClassId" type="String">A param.</param>
+    /// <returns type="DeviceAccessInformation" />
+    /// </signature>
+    return new DeviceAccessInformation();
+  }
+
+
+  cls.createFromDeviceClass = function createFromDeviceClass(deviceClass) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="deviceClass" type="DeviceClass">A param.</param>
+    /// <returns type="DeviceAccessInformation" />
+    /// </signature>
+    return new DeviceAccessInformation();
+  }
+
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.DeviceAccessInformation = DeviceAccessInformation;
 
 DeviceConnectionChangeTriggerDetails = (function () {
   var cls = function DeviceConnectionChangeTriggerDetails() {
@@ -143,32 +200,6 @@ DeviceConnectionChangeTriggerDetails = (function () {
 }) ();
 exports.DeviceConnectionChangeTriggerDetails = DeviceConnectionChangeTriggerDetails;
 
-DevicePickerAppearance = (function () {
-  var cls = function DevicePickerAppearance() {
-    this.title = new String();
-    this.selectedForegroundColor = new Object();
-    this.selectedBackgroundColor = new Object();
-    this.selectedAccentColor = new Object();
-    this.foregroundColor = new Object();
-    this.backgroundColor = new Object();
-    this.accentColor = new Object();
-  };
-  
-
-  return cls;
-}) ();
-exports.DevicePickerAppearance = DevicePickerAppearance;
-
-DeviceSelectedEventArgs = (function () {
-  var cls = function DeviceSelectedEventArgs() {
-    this.selectedDevice = new DeviceInformation();
-  };
-  
-
-  return cls;
-}) ();
-exports.DeviceSelectedEventArgs = DeviceSelectedEventArgs;
-
 DeviceDisconnectButtonClickedEventArgs = (function () {
   var cls = function DeviceDisconnectButtonClickedEventArgs() {
     this.device = new DeviceInformation();
@@ -178,267 +209,6 @@ DeviceDisconnectButtonClickedEventArgs = (function () {
   return cls;
 }) ();
 exports.DeviceDisconnectButtonClickedEventArgs = DeviceDisconnectButtonClickedEventArgs;
-
-DevicePickerFilter = (function () {
-  var cls = function DevicePickerFilter() {
-    this.supportedDeviceClasses = new Object();
-    this.supportedDeviceSelectors = new Object();
-  };
-  
-
-  return cls;
-}) ();
-exports.DevicePickerFilter = DevicePickerFilter;
-
-DevicePicker = (function () {
-  var cls = function DevicePicker() {
-    this.appearance = new DevicePickerAppearance();
-    this.filter = new DevicePickerFilter();
-    this.requestedProperties = new Object();
-  };
-  
-
-  cls.prototype.pickSingleDeviceAsync = function pickSingleDeviceAsync(selection, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="selection" type="Object">A param.</param>
-    /// </signature>
-  }
-
-cls.prototype.pickSingleDeviceAsync = function pickSingleDeviceAsync(selection, placement, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="selection" type="Object">A param.</param>
-    /// <param name="placement" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.show = function show(selection) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="selection" type="Object">A param.</param>
-    /// </signature>
-  }
-
-cls.prototype.show = function show(selection, placement) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="selection" type="Object">A param.</param>
-    /// <param name="placement" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.hide = function hide() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.setDisplayStatus = function setDisplayStatus(device, status, options) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="device" type="DeviceInformation">A param.</param>
-    /// <param name="status" type="String">A param.</param>
-    /// <param name="options" type="DevicePickerDisplayStatusOptions">A param.</param>
-    /// </signature>
-  }
-
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.DevicePicker = DevicePicker;
-
-DeviceThumbnail = (function () {
-  var cls = function DeviceThumbnail() {
-    this.contentType = new String();
-    this.size = new Number();
-    this.canRead = new Boolean();
-    this.canWrite = new Boolean();
-    this.position = new Number();
-  };
-  
-
-  cls.prototype.readAsync = function readAsync(buffer, count, options, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="buffer" type="Object">A param.</param>
-    /// <param name="count" type="Number">A param.</param>
-    /// <param name="options" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.writeAsync = function writeAsync(buffer, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="buffer" type="Object">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.flushAsync = function flushAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.getInputStreamAt = function getInputStreamAt(position) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="position" type="Number">A param.</param>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  cls.prototype.getOutputStreamAt = function getOutputStreamAt(position) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="position" type="Number">A param.</param>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  cls.prototype.seek = function seek(position) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="position" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.cloneStream = function cloneStream() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  cls.prototype.close = function close() {
-}
-
-
-  return cls;
-}) ();
-exports.DeviceThumbnail = DeviceThumbnail;
-
-EnclosureLocation = (function () {
-  var cls = function EnclosureLocation() {
-    this.inDock = new Boolean();
-    this.inLid = new Boolean();
-    this.panel = new Panel();
-    this.rotationAngleInDegreesClockwise = new Number();
-  };
-  
-
-  return cls;
-}) ();
-exports.EnclosureLocation = EnclosureLocation;
-
-DeviceInformationUpdate = (function () {
-  var cls = function DeviceInformationUpdate() {
-    this.id = new String();
-    this.properties = new Object();
-    this.kind = new DeviceInformationKind();
-  };
-  
-
-  return cls;
-}) ();
-exports.DeviceInformationUpdate = DeviceInformationUpdate;
-
-DeviceInformationCollection = (function () {
-  var cls = function DeviceInformationCollection() {
-  };
-  
-
-  cls.prototype.getAt = function getAt(index) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="index" type="Number">A param.</param>
-    /// <returns type="DeviceInformation" />
-    /// </signature>
-    return new DeviceInformation();
-  }
-
-
-  cls.prototype.indexOf = function indexOf(value, index) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="DeviceInformation">A param.</param>
-    /// <param name="index" type="Number">A param.</param>
-    /// <returns type="Boolean" />
-    /// </signature>
-    return new Boolean();
-  }
-
-
-  cls.prototype.getMany = function () {
-}
-
-  cls.prototype.first = function first() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  return cls;
-}) ();
-exports.DeviceInformationCollection = DeviceInformationCollection;
-
-DeviceWatcher = (function () {
-  var cls = function DeviceWatcher() {
-    this.status = new DeviceWatcherStatus();
-  };
-  
-
-  cls.prototype.start = function start() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.stop = function stop() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.getBackgroundTrigger = function getBackgroundTrigger(requestedEventKinds) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="requestedEventKinds" type="Object">A param.</param>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.DeviceWatcher = DeviceWatcher;
 
 DeviceInformation = (function () {
   var cls = function DeviceInformation() {
@@ -602,59 +372,36 @@ cls.createWatcher = function createWatcher(aqsFilter, additionalProperties) {
 }) ();
 exports.DeviceInformation = DeviceInformation;
 
-DevicePairingResult = (function () {
-  var cls = function DevicePairingResult() {
-    this.protectionLevelUsed = new DevicePairingProtectionLevel();
-    this.status = new DevicePairingResultStatus();
+DeviceInformationCollection = (function () {
+  var cls = function DeviceInformationCollection() {
   };
   
 
-  return cls;
-}) ();
-exports.DevicePairingResult = DevicePairingResult;
-
-DeviceUnpairingResult = (function () {
-  var cls = function DeviceUnpairingResult() {
-    this.status = new DeviceUnpairingResultStatus();
-  };
-  
-
-  return cls;
-}) ();
-exports.DeviceUnpairingResult = DeviceUnpairingResult;
-
-IDevicePairingSettings = (function () {
-  var cls = function IDevicePairingSettings() {
-  };
-  
-
-  return cls;
-}) ();
-exports.IDevicePairingSettings = IDevicePairingSettings;
-
-DevicePairingRequestedEventArgs = (function () {
-  var cls = function DevicePairingRequestedEventArgs() {
-    this.deviceInformation = new DeviceInformation();
-    this.pairingKind = new DevicePairingKinds();
-    this.pin = new String();
-  };
-  
-
-  cls.prototype.accept = function accept() {
+  cls.prototype.getAt = function getAt(index) {
     /// <signature>
     /// <summary>Function summary.</summary>
+    /// <param name="index" type="Number">A param.</param>
+    /// <returns type="DeviceInformation" />
     /// </signature>
-  }
-
-cls.prototype.accept = function accept(pin) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="pin" type="String">A param.</param>
-    /// </signature>
+    return new DeviceInformation();
   }
 
 
-  cls.prototype.getDeferral = function getDeferral() {
+  cls.prototype.indexOf = function indexOf(value, index) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="DeviceInformation">A param.</param>
+    /// <param name="index" type="Number">A param.</param>
+    /// <returns type="Boolean" />
+    /// </signature>
+    return new Boolean();
+  }
+
+
+  cls.prototype.getMany = function () {
+}
+
+  cls.prototype.first = function first() {
     /// <signature>
     /// <summary>Function summary.</summary>
     /// <returns type="Object" />
@@ -665,7 +412,7 @@ cls.prototype.accept = function accept(pin) {
 
   return cls;
 }) ();
-exports.DevicePairingRequestedEventArgs = DevicePairingRequestedEventArgs;
+exports.DeviceInformationCollection = DeviceInformationCollection;
 
 DeviceInformationCustomPairing = (function () {
   var cls = function DeviceInformationCustomPairing() {
@@ -743,6 +490,17 @@ cls.prototype.pairAsync = function pairAsync(minProtectionLevel, devicePairingSe
   }
 
 
+  cls.tryRegisterForAllInboundPairingRequestsWithProtectionLevel = function tryRegisterForAllInboundPairingRequestsWithProtectionLevel(pairingKindsSupported, minProtectionLevel) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="pairingKindsSupported" type="DevicePairingKinds">A param.</param>
+    /// <param name="minProtectionLevel" type="DevicePairingProtectionLevel">A param.</param>
+    /// <returns type="Boolean" />
+    /// </signature>
+    return new Boolean();
+  }
+
+
   cls.tryRegisterForAllInboundPairingRequests = function tryRegisterForAllInboundPairingRequests(pairingKindsSupported) {
     /// <signature>
     /// <summary>Function summary.</summary>
@@ -757,50 +515,126 @@ cls.prototype.pairAsync = function pairAsync(minProtectionLevel, devicePairingSe
 }) ();
 exports.DeviceInformationPairing = DeviceInformationPairing;
 
-DeviceAccessChangedEventArgs = (function () {
-  var cls = function DeviceAccessChangedEventArgs() {
-    this.status = new DeviceAccessStatus();
+DeviceInformationUpdate = (function () {
+  var cls = function DeviceInformationUpdate() {
     this.id = new String();
+    this.properties = new Object();
+    this.kind = new DeviceInformationKind();
   };
   
 
   return cls;
 }) ();
-exports.DeviceAccessChangedEventArgs = DeviceAccessChangedEventArgs;
+exports.DeviceInformationUpdate = DeviceInformationUpdate;
 
-DeviceAccessInformation = (function () {
-  var cls = function DeviceAccessInformation() {
-    this.currentStatus = new DeviceAccessStatus();
+DevicePairingRequestedEventArgs = (function () {
+  var cls = function DevicePairingRequestedEventArgs() {
+    this.deviceInformation = new DeviceInformation();
+    this.pairingKind = new DevicePairingKinds();
+    this.pin = new String();
   };
   
 
-  cls.createFromId = function createFromId(deviceId) {
+  cls.prototype.accept = function accept() {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="deviceId" type="String">A param.</param>
-    /// <returns type="DeviceAccessInformation" />
     /// </signature>
-    return new DeviceAccessInformation();
+  }
+
+cls.prototype.accept = function accept(pin) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="pin" type="String">A param.</param>
+    /// </signature>
   }
 
 
-  cls.createFromDeviceClassId = function createFromDeviceClassId(deviceClassId) {
+  cls.prototype.getDeferral = function getDeferral() {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="deviceClassId" type="String">A param.</param>
-    /// <returns type="DeviceAccessInformation" />
+    /// <returns type="Object" />
     /// </signature>
-    return new DeviceAccessInformation();
+    return new Object();
   }
 
 
-  cls.createFromDeviceClass = function createFromDeviceClass(deviceClass) {
+  cls.prototype.acceptWithPasswordCredential = function acceptWithPasswordCredential(passwordCredential) {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="deviceClass" type="DeviceClass">A param.</param>
-    /// <returns type="DeviceAccessInformation" />
+    /// <param name="passwordCredential" type="Object">A param.</param>
     /// </signature>
-    return new DeviceAccessInformation();
+  }
+
+
+  return cls;
+}) ();
+exports.DevicePairingRequestedEventArgs = DevicePairingRequestedEventArgs;
+
+DevicePairingResult = (function () {
+  var cls = function DevicePairingResult() {
+    this.protectionLevelUsed = new DevicePairingProtectionLevel();
+    this.status = new DevicePairingResultStatus();
+  };
+  
+
+  return cls;
+}) ();
+exports.DevicePairingResult = DevicePairingResult;
+
+DevicePicker = (function () {
+  var cls = function DevicePicker() {
+    this.appearance = new DevicePickerAppearance();
+    this.filter = new DevicePickerFilter();
+    this.requestedProperties = new Object();
+  };
+  
+
+  cls.prototype.pickSingleDeviceAsync = function pickSingleDeviceAsync(selection, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="selection" type="Object">A param.</param>
+    /// </signature>
+  }
+
+cls.prototype.pickSingleDeviceAsync = function pickSingleDeviceAsync(selection, placement, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="selection" type="Object">A param.</param>
+    /// <param name="placement" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.show = function show(selection) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="selection" type="Object">A param.</param>
+    /// </signature>
+  }
+
+cls.prototype.show = function show(selection, placement) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="selection" type="Object">A param.</param>
+    /// <param name="placement" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.hide = function hide() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.setDisplayStatus = function setDisplayStatus(device, status, options) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="device" type="DeviceInformation">A param.</param>
+    /// <param name="status" type="String">A param.</param>
+    /// <param name="options" type="DevicePickerDisplayStatusOptions">A param.</param>
+    /// </signature>
   }
 
 
@@ -810,7 +644,172 @@ DeviceAccessInformation = (function () {
     cls.prototype.off = function off(eventName, callback){}
   return cls;
 }) ();
-exports.DeviceAccessInformation = DeviceAccessInformation;
+exports.DevicePicker = DevicePicker;
+
+DevicePickerAppearance = (function () {
+  var cls = function DevicePickerAppearance() {
+    this.title = new String();
+    this.selectedForegroundColor = new Object();
+    this.selectedBackgroundColor = new Object();
+    this.selectedAccentColor = new Object();
+    this.foregroundColor = new Object();
+    this.backgroundColor = new Object();
+    this.accentColor = new Object();
+  };
+  
+
+  return cls;
+}) ();
+exports.DevicePickerAppearance = DevicePickerAppearance;
+
+DevicePickerFilter = (function () {
+  var cls = function DevicePickerFilter() {
+    this.supportedDeviceClasses = new Object();
+    this.supportedDeviceSelectors = new Object();
+  };
+  
+
+  return cls;
+}) ();
+exports.DevicePickerFilter = DevicePickerFilter;
+
+DeviceSelectedEventArgs = (function () {
+  var cls = function DeviceSelectedEventArgs() {
+    this.selectedDevice = new DeviceInformation();
+  };
+  
+
+  return cls;
+}) ();
+exports.DeviceSelectedEventArgs = DeviceSelectedEventArgs;
+
+DeviceThumbnail = (function () {
+  var cls = function DeviceThumbnail() {
+    this.contentType = new String();
+    this.size = new Number();
+    this.canRead = new Boolean();
+    this.canWrite = new Boolean();
+    this.position = new Number();
+  };
+  
+
+  cls.prototype.readAsync = function readAsync(buffer, count, options, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="buffer" type="Object">A param.</param>
+    /// <param name="count" type="Number">A param.</param>
+    /// <param name="options" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeAsync = function writeAsync(buffer, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="buffer" type="Object">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.flushAsync = function flushAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.getInputStreamAt = function getInputStreamAt(position) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="position" type="Number">A param.</param>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  cls.prototype.getOutputStreamAt = function getOutputStreamAt(position) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="position" type="Number">A param.</param>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  cls.prototype.seek = function seek(position) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="position" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.cloneStream = function cloneStream() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  cls.prototype.close = function close() {
+}
+
+
+  return cls;
+}) ();
+exports.DeviceThumbnail = DeviceThumbnail;
+
+DeviceUnpairingResult = (function () {
+  var cls = function DeviceUnpairingResult() {
+    this.status = new DeviceUnpairingResultStatus();
+  };
+  
+
+  return cls;
+}) ();
+exports.DeviceUnpairingResult = DeviceUnpairingResult;
+
+DeviceWatcher = (function () {
+  var cls = function DeviceWatcher() {
+    this.status = new DeviceWatcherStatus();
+  };
+  
+
+  cls.prototype.start = function start() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.stop = function stop() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.getBackgroundTrigger = function getBackgroundTrigger(requestedEventKinds) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="requestedEventKinds" type="Object">A param.</param>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.DeviceWatcher = DeviceWatcher;
 
 DeviceWatcherEvent = (function () {
   var cls = function DeviceWatcherEvent() {
@@ -833,4 +832,26 @@ DeviceWatcherTriggerDetails = (function () {
   return cls;
 }) ();
 exports.DeviceWatcherTriggerDetails = DeviceWatcherTriggerDetails;
+
+EnclosureLocation = (function () {
+  var cls = function EnclosureLocation() {
+    this.inDock = new Boolean();
+    this.inLid = new Boolean();
+    this.panel = new Panel();
+    this.rotationAngleInDegreesClockwise = new Number();
+  };
+  
+
+  return cls;
+}) ();
+exports.EnclosureLocation = EnclosureLocation;
+
+IDevicePairingSettings = (function () {
+  var cls = function IDevicePairingSettings() {
+  };
+  
+
+  return cls;
+}) ();
+exports.IDevicePairingSettings = IDevicePairingSettings;
 

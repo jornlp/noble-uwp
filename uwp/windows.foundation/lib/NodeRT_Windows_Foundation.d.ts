@@ -7,6 +7,13 @@ declare module "windows.foundation" {
     constructor();
   }
 
+  export enum AsyncStatus {
+    canceled,
+    completed,
+    error,
+    started,
+  }
+
   export enum PropertyType {
     empty,
     uInt8,
@@ -51,11 +58,99 @@ declare module "windows.foundation" {
     otherTypeArray,
   }
 
-  export enum AsyncStatus {
-    canceled,
-    completed,
-    error,
-    started,
+  export class Deferral {
+    constructor();
+    constructor(handler: Object);
+
+    complete(): void;
+
+    close(): void;
+  }
+
+  export class GuidHelper {
+    static empty: String;
+    constructor();
+
+    static createNewGuid(): String;
+
+
+    static equals(target: String, value: String): Boolean;
+
+
+  }
+
+  export class IAsyncAction {
+    completed: Object;
+    constructor();
+
+    getResults(): void;
+
+  }
+
+  export class IAsyncInfo {
+    errorCode: Number;
+    id: Number;
+    status: AsyncStatus;
+    constructor();
+
+    cancel(): void;
+
+    close(): void;
+
+  }
+
+  export class IGetActivationFactory {
+    constructor();
+
+    getActivationFactory(activatableClassId: String): Object;
+
+  }
+
+  export class IMemoryBuffer {
+    constructor();
+
+    createReference(): IMemoryBufferReference;
+
+  }
+
+  export class IMemoryBufferReference {
+    capacity: Number;
+    constructor();
+
+    addListener(type: "Closed", listener: (ev: Event) => void): void ;
+    removeListener(type: "Closed", listener: (ev: Event) => void): void ;
+    on(type: "Closed", listener: (ev: Event) => void): void ;
+    off(type: "Closed", listener: (ev: Event) => void): void ;
+    
+    addListener(type: string, listener: (ev: Event) => void): void ;
+    removeListener(type: string, listener: (ev: Event) => void): void ;
+    on(type: string, listener: (ev: Event) => void): void ;
+    off(type: string, listener: (ev: Event) => void): void ;
+    
+
+  }
+
+  export class IStringable {
+    constructor();
+
+    toString(): String;
+
+  }
+
+  export class IWwwFormUrlDecoderEntry {
+    name: String;
+    value: String;
+    constructor();
+
+  }
+
+  export class MemoryBuffer {
+    constructor();
+    constructor(capacity: Number);
+
+    createReference(): IMemoryBufferReference;
+
+    close(): void;
   }
 
   export class PropertyValue {
@@ -180,75 +275,6 @@ declare module "windows.foundation" {
 
   }
 
-  export class IStringable {
-    constructor();
-
-    toString(): String;
-
-  }
-
-  export class Deferral {
-    constructor();
-    constructor(handler: Object);
-
-    complete(): void;
-
-    close(): void;
-  }
-
-  export class IAsyncInfo {
-    errorCode: Number;
-    id: Number;
-    status: AsyncStatus;
-    constructor();
-
-    cancel(): void;
-
-    close(): void;
-
-  }
-
-  export class IAsyncAction {
-    completed: Object;
-    constructor();
-
-    getResults(): void;
-
-  }
-
-  export class IMemoryBufferReference {
-    capacity: Number;
-    constructor();
-
-    addListener(type: "Closed", listener: (ev: Event) => void): void ;
-    removeListener(type: "Closed", listener: (ev: Event) => void): void ;
-    on(type: "Closed", listener: (ev: Event) => void): void ;
-    off(type: "Closed", listener: (ev: Event) => void): void ;
-    
-    addListener(type: string, listener: (ev: Event) => void): void ;
-    removeListener(type: string, listener: (ev: Event) => void): void ;
-    on(type: string, listener: (ev: Event) => void): void ;
-    off(type: string, listener: (ev: Event) => void): void ;
-    
-
-  }
-
-  export class IMemoryBuffer {
-    constructor();
-
-    createReference(): IMemoryBufferReference;
-
-  }
-
-  export class MemoryBuffer {
-    constructor();
-    constructor(capacity: Number);
-
-    createReference(): IMemoryBufferReference;
-
-    close(): void;
-  }
-
   export class WwwFormUrlDecoder {
     constructor();
     constructor(query: String);
@@ -264,24 +290,10 @@ declare module "windows.foundation" {
     getMany();
   }
 
-  export class IWwwFormUrlDecoderEntry {
-    name: String;
-    value: String;
-    constructor();
-
-  }
-
   export class WwwFormUrlDecoderEntry {
     name: String;
     value: String;
     constructor();
-
-  }
-
-  export class IGetActivationFactory {
-    constructor();
-
-    getActivationFactory(activatableClassId: String): Object;
 
   }
 

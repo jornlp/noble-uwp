@@ -1,10 +1,10 @@
-_RadioState = function () {
-  this.unknown = 0;
-  this.on = 1;
-  this.off = 2;
-  this.disabled = 3;
+_RadioAccessStatus = function () {
+  this.unspecified = 0;
+  this.allowed = 1;
+  this.deniedByUser = 2;
+  this.deniedBySystem = 3;
 }
-exports.RadioState = new _RadioState();
+exports.RadioAccessStatus = new _RadioAccessStatus();
 
 _RadioKind = function () {
   this.other = 0;
@@ -15,13 +15,13 @@ _RadioKind = function () {
 }
 exports.RadioKind = new _RadioKind();
 
-_RadioAccessStatus = function () {
-  this.unspecified = 0;
-  this.allowed = 1;
-  this.deniedByUser = 2;
-  this.deniedBySystem = 3;
+_RadioState = function () {
+  this.unknown = 0;
+  this.on = 1;
+  this.off = 2;
+  this.disabled = 3;
 }
-exports.RadioAccessStatus = new _RadioAccessStatus();
+exports.RadioState = new _RadioState();
 
 Radio = (function () {
   var cls = function Radio() {

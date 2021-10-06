@@ -1,9 +1,3 @@
-_GattSessionStatus = function () {
-  this.closed = 0;
-  this.active = 1;
-}
-exports.GattSessionStatus = new _GattSessionStatus();
-
 _GattCharacteristicProperties = function () {
   this.none = 0;
   this.broadcast = 1;
@@ -26,20 +20,6 @@ _GattClientCharacteristicConfigurationDescriptorValue = function () {
 }
 exports.GattClientCharacteristicConfigurationDescriptorValue = new _GattClientCharacteristicConfigurationDescriptorValue();
 
-_GattProtectionLevel = function () {
-  this.plain = 0;
-  this.authenticationRequired = 1;
-  this.encryptionRequired = 2;
-  this.encryptionAndAuthenticationRequired = 3;
-}
-exports.GattProtectionLevel = new _GattProtectionLevel();
-
-_GattWriteOption = function () {
-  this.writeWithResponse = 0;
-  this.writeWithoutResponse = 1;
-}
-exports.GattWriteOption = new _GattWriteOption();
-
 _GattCommunicationStatus = function () {
   this.success = 0;
   this.unreachable = 1;
@@ -47,14 +27,6 @@ _GattCommunicationStatus = function () {
   this.accessDenied = 3;
 }
 exports.GattCommunicationStatus = new _GattCommunicationStatus();
-
-_GattSharingMode = function () {
-  this.unspecified = 0;
-  this.exclusive = 1;
-  this.sharedReadOnly = 2;
-  this.sharedReadAndWrite = 3;
-}
-exports.GattSharingMode = new _GattSharingMode();
 
 _GattOpenStatus = function () {
   this.unspecified = 0;
@@ -65,6 +37,14 @@ _GattOpenStatus = function () {
   this.accessDenied = 5;
 }
 exports.GattOpenStatus = new _GattOpenStatus();
+
+_GattProtectionLevel = function () {
+  this.plain = 0;
+  this.authenticationRequired = 1;
+  this.encryptionRequired = 2;
+  this.encryptionAndAuthenticationRequired = 3;
+}
+exports.GattProtectionLevel = new _GattProtectionLevel();
 
 _GattRequestState = function () {
   this.pending = 0;
@@ -78,8 +58,371 @@ _GattServiceProviderAdvertisementStatus = function () {
   this.stopped = 1;
   this.started = 2;
   this.aborted = 3;
+  this.startedWithoutAllAdvertisementData = 4;
 }
 exports.GattServiceProviderAdvertisementStatus = new _GattServiceProviderAdvertisementStatus();
+
+_GattSessionStatus = function () {
+  this.closed = 0;
+  this.active = 1;
+}
+exports.GattSessionStatus = new _GattSessionStatus();
+
+_GattSharingMode = function () {
+  this.unspecified = 0;
+  this.exclusive = 1;
+  this.sharedReadOnly = 2;
+  this.sharedReadAndWrite = 3;
+}
+exports.GattSharingMode = new _GattSharingMode();
+
+_GattWriteOption = function () {
+  this.writeWithResponse = 0;
+  this.writeWithoutResponse = 1;
+}
+exports.GattWriteOption = new _GattWriteOption();
+
+GattCharacteristic = (function () {
+  var cls = function GattCharacteristic() {
+    this.protectionLevel = new GattProtectionLevel();
+    this.attributeHandle = new Number();
+    this.characteristicProperties = new GattCharacteristicProperties();
+    this.presentationFormats = new Object();
+    this.userDescription = new String();
+    this.uuid = new String();
+    this.service = new GattDeviceService();
+  };
+  
+
+  cls.prototype.readValueAsync = function readValueAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+cls.prototype.readValueAsync = function readValueAsync(cacheMode, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="cacheMode" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeValueAsync = function writeValueAsync(value, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// </signature>
+  }
+
+cls.prototype.writeValueAsync = function writeValueAsync(value, writeOption, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// <param name="writeOption" type="GattWriteOption">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.readClientCharacteristicConfigurationDescriptorAsync = function readClientCharacteristicConfigurationDescriptorAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeClientCharacteristicConfigurationDescriptorAsync = function writeClientCharacteristicConfigurationDescriptorAsync(clientCharacteristicConfigurationDescriptorValue, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="clientCharacteristicConfigurationDescriptorValue" type="GattClientCharacteristicConfigurationDescriptorValue">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.getDescriptorsAsync = function getDescriptorsAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+cls.prototype.getDescriptorsAsync = function getDescriptorsAsync(cacheMode, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="cacheMode" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.getDescriptorsForUuidAsync = function getDescriptorsForUuidAsync(descriptorUuid, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="descriptorUuid" type="String">A param.</param>
+    /// </signature>
+  }
+
+cls.prototype.getDescriptorsForUuidAsync = function getDescriptorsForUuidAsync(descriptorUuid, cacheMode, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="descriptorUuid" type="String">A param.</param>
+    /// <param name="cacheMode" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// </signature>
+  }
+
+cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, writeOption, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// <param name="writeOption" type="GattWriteOption">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeClientCharacteristicConfigurationDescriptorWithResultAsync = function writeClientCharacteristicConfigurationDescriptorWithResultAsync(clientCharacteristicConfigurationDescriptorValue, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="clientCharacteristicConfigurationDescriptorValue" type="GattClientCharacteristicConfigurationDescriptorValue">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.getDescriptors = function getDescriptors(descriptorUuid) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="descriptorUuid" type="String">A param.</param>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  cls.prototype.getAllDescriptors = function getAllDescriptors() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  cls.convertShortIdToUuid = function convertShortIdToUuid(shortId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="shortId" type="Number">A param.</param>
+    /// <returns type="String" />
+    /// </signature>
+    return new String();
+  }
+
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.GattCharacteristic = GattCharacteristic;
+
+GattCharacteristicUuids = (function () {
+  var cls = function GattCharacteristicUuids() {
+  };
+  
+
+  cls.batteryLevel = new String();
+  cls.bloodPressureFeature = new String();
+  cls.bloodPressureMeasurement = new String();
+  cls.bodySensorLocation = new String();
+  cls.cscFeature = new String();
+  cls.cscMeasurement = new String();
+  cls.glucoseFeature = new String();
+  cls.glucoseMeasurement = new String();
+  cls.glucoseMeasurementContext = new String();
+  cls.heartRateControlPoint = new String();
+  cls.heartRateMeasurement = new String();
+  cls.intermediateCuffPressure = new String();
+  cls.intermediateTemperature = new String();
+  cls.measurementInterval = new String();
+  cls.recordAccessControlPoint = new String();
+  cls.rscFeature = new String();
+  cls.rscMeasurement = new String();
+  cls.sCControlPoint = new String();
+  cls.sensorLocation = new String();
+  cls.temperatureMeasurement = new String();
+  cls.temperatureType = new String();
+  cls.lnFeature = new String();
+  cls.alertCategoryId = new String();
+  cls.alertCategoryIdBitMask = new String();
+  cls.alertLevel = new String();
+  cls.alertNotificationControlPoint = new String();
+  cls.alertStatus = new String();
+  cls.bootKeyboardInputReport = new String();
+  cls.bootKeyboardOutputReport = new String();
+  cls.bootMouseInputReport = new String();
+  cls.currentTime = new String();
+  cls.cyclingPowerControlPoint = new String();
+  cls.cyclingPowerFeature = new String();
+  cls.cyclingPowerMeasurement = new String();
+  cls.cyclingPowerVector = new String();
+  cls.dateTime = new String();
+  cls.dayDateTime = new String();
+  cls.dayOfWeek = new String();
+  cls.dstOffset = new String();
+  cls.exactTime256 = new String();
+  cls.firmwareRevisionString = new String();
+  cls.gapAppearance = new String();
+  cls.gapDeviceName = new String();
+  cls.gapPeripheralPreferredConnectionParameters = new String();
+  cls.gapPeripheralPrivacyFlag = new String();
+  cls.gapReconnectionAddress = new String();
+  cls.gattServiceChanged = new String();
+  cls.hardwareRevisionString = new String();
+  cls.hidControlPoint = new String();
+  cls.hidInformation = new String();
+  cls.ieee1107320601RegulatoryCertificationDataList = new String();
+  cls.lnControlPoint = new String();
+  cls.localTimeInformation = new String();
+  cls.locationAndSpeed = new String();
+  cls.manufacturerNameString = new String();
+  cls.modelNumberString = new String();
+  cls.navigation = new String();
+  cls.newAlert = new String();
+  cls.pnpId = new String();
+  cls.positionQuality = new String();
+  cls.protocolMode = new String();
+  cls.referenceTimeInformation = new String();
+  cls.report = new String();
+  cls.reportMap = new String();
+  cls.ringerControlPoint = new String();
+  cls.ringerSetting = new String();
+  cls.scanIntervalWindow = new String();
+  cls.scanRefresh = new String();
+  cls.serialNumberString = new String();
+  cls.softwareRevisionString = new String();
+  cls.supportUnreadAlertCategory = new String();
+  cls.supportedNewAlertCategory = new String();
+  cls.systemId = new String();
+  cls.timeAccuracy = new String();
+  cls.timeSource = new String();
+  cls.timeUpdateControlPoint = new String();
+  cls.timeUpdateState = new String();
+  cls.timeWithDst = new String();
+  cls.timeZone = new String();
+  cls.txPowerLevel = new String();
+  cls.unreadAlertStatus = new String();
+  return cls;
+}) ();
+exports.GattCharacteristicUuids = GattCharacteristicUuids;
+
+GattCharacteristicsResult = (function () {
+  var cls = function GattCharacteristicsResult() {
+    this.characteristics = new Object();
+    this.protocolError = new Number();
+    this.status = new GattCommunicationStatus();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattCharacteristicsResult = GattCharacteristicsResult;
+
+GattClientNotificationResult = (function () {
+  var cls = function GattClientNotificationResult() {
+    this.protocolError = new Number();
+    this.status = new GattCommunicationStatus();
+    this.subscribedClient = new GattSubscribedClient();
+    this.bytesSent = new Number();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattClientNotificationResult = GattClientNotificationResult;
+
+GattDescriptor = (function () {
+  var cls = function GattDescriptor() {
+    this.protectionLevel = new GattProtectionLevel();
+    this.attributeHandle = new Number();
+    this.uuid = new String();
+  };
+  
+
+  cls.prototype.readValueAsync = function readValueAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+cls.prototype.readValueAsync = function readValueAsync(cacheMode, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="cacheMode" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeValueAsync = function writeValueAsync(value, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.convertShortIdToUuid = function convertShortIdToUuid(shortId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="shortId" type="Number">A param.</param>
+    /// <returns type="String" />
+    /// </signature>
+    return new String();
+  }
+
+
+  return cls;
+}) ();
+exports.GattDescriptor = GattDescriptor;
+
+GattDescriptorUuids = (function () {
+  var cls = function GattDescriptorUuids() {
+  };
+  
+
+  cls.characteristicAggregateFormat = new String();
+  cls.characteristicExtendedProperties = new String();
+  cls.characteristicPresentationFormat = new String();
+  cls.characteristicUserDescription = new String();
+  cls.clientCharacteristicConfiguration = new String();
+  cls.serverCharacteristicConfiguration = new String();
+  return cls;
+}) ();
+exports.GattDescriptorUuids = GattDescriptorUuids;
+
+GattDescriptorsResult = (function () {
+  var cls = function GattDescriptorsResult() {
+    this.descriptors = new Object();
+    this.protocolError = new Number();
+    this.status = new GattCommunicationStatus();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattDescriptorsResult = GattDescriptorsResult;
 
 GattDeviceService = (function () {
   var cls = function GattDeviceService() {
@@ -316,211 +659,42 @@ GattDeviceServicesResult = (function () {
 }) ();
 exports.GattDeviceServicesResult = GattDeviceServicesResult;
 
-GattProtocolError = (function () {
-  var cls = function GattProtocolError() {
-  };
-  
-
-  cls.attributeNotFound = new Number();
-  cls.attributeNotLong = new Number();
-  cls.insufficientAuthentication = new Number();
-  cls.insufficientAuthorization = new Number();
-  cls.insufficientEncryption = new Number();
-  cls.insufficientEncryptionKeySize = new Number();
-  cls.insufficientResources = new Number();
-  cls.invalidAttributeValueLength = new Number();
-  cls.invalidHandle = new Number();
-  cls.invalidOffset = new Number();
-  cls.invalidPdu = new Number();
-  cls.prepareQueueFull = new Number();
-  cls.readNotPermitted = new Number();
-  cls.requestNotSupported = new Number();
-  cls.unlikelyError = new Number();
-  cls.unsupportedGroupType = new Number();
-  cls.writeNotPermitted = new Number();
-  return cls;
-}) ();
-exports.GattProtocolError = GattProtocolError;
-
-GattSession = (function () {
-  var cls = function GattSession() {
-    this.maintainConnection = new Boolean();
-    this.canMaintainConnection = new Boolean();
-    this.deviceId = new Object();
-    this.maxPduSize = new Number();
-    this.sessionStatus = new GattSessionStatus();
-  };
-  
-
-  cls.prototype.close = function close() {
-}
-
-
-  cls.fromDeviceIdAsync = function fromDeviceIdAsync(deviceId, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="deviceId" type="Object">A param.</param>
-    /// </signature>
-  }
-
-
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.GattSession = GattSession;
-
-GattSessionStatusChangedEventArgs = (function () {
-  var cls = function GattSessionStatusChangedEventArgs() {
-    this.error = new Number();
-    this.status = new GattSessionStatus();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattSessionStatusChangedEventArgs = GattSessionStatusChangedEventArgs;
-
-GattCharacteristic = (function () {
-  var cls = function GattCharacteristic() {
-    this.protectionLevel = new GattProtectionLevel();
-    this.attributeHandle = new Number();
+GattLocalCharacteristic = (function () {
+  var cls = function GattLocalCharacteristic() {
     this.characteristicProperties = new GattCharacteristicProperties();
+    this.descriptors = new Object();
     this.presentationFormats = new Object();
+    this.readProtectionLevel = new GattProtectionLevel();
+    this.staticValue = new Object();
+    this.subscribedClients = new Object();
     this.userDescription = new String();
     this.uuid = new String();
-    this.service = new GattDeviceService();
+    this.writeProtectionLevel = new GattProtectionLevel();
   };
   
 
-  cls.prototype.readValueAsync = function readValueAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-cls.prototype.readValueAsync = function readValueAsync(cacheMode, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="cacheMode" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.writeValueAsync = function writeValueAsync(value, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// </signature>
-  }
-
-cls.prototype.writeValueAsync = function writeValueAsync(value, writeOption, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// <param name="writeOption" type="GattWriteOption">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.readClientCharacteristicConfigurationDescriptorAsync = function readClientCharacteristicConfigurationDescriptorAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.writeClientCharacteristicConfigurationDescriptorAsync = function writeClientCharacteristicConfigurationDescriptorAsync(clientCharacteristicConfigurationDescriptorValue, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="clientCharacteristicConfigurationDescriptorValue" type="GattClientCharacteristicConfigurationDescriptorValue">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.getDescriptorsAsync = function getDescriptorsAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-cls.prototype.getDescriptorsAsync = function getDescriptorsAsync(cacheMode, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="cacheMode" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.getDescriptorsForUuidAsync = function getDescriptorsForUuidAsync(descriptorUuid, callback) {
+  cls.prototype.createDescriptorAsync = function createDescriptorAsync(descriptorUuid, parameters, callback) {
     /// <signature>
     /// <summary>Function summary.</summary>
     /// <param name="descriptorUuid" type="String">A param.</param>
-    /// </signature>
-  }
-
-cls.prototype.getDescriptorsForUuidAsync = function getDescriptorsForUuidAsync(descriptorUuid, cacheMode, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="descriptorUuid" type="String">A param.</param>
-    /// <param name="cacheMode" type="Number">A param.</param>
+    /// <param name="parameters" type="GattLocalDescriptorParameters">A param.</param>
     /// </signature>
   }
 
 
-  cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, callback) {
+  cls.prototype.notifyValueAsync = function notifyValueAsync(value, callback) {
     /// <signature>
     /// <summary>Function summary.</summary>
     /// <param name="value" type="Object">A param.</param>
     /// </signature>
   }
 
-cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, writeOption, callback) {
+cls.prototype.notifyValueAsync = function notifyValueAsync(value, subscribedClient, callback) {
     /// <signature>
     /// <summary>Function summary.</summary>
     /// <param name="value" type="Object">A param.</param>
-    /// <param name="writeOption" type="GattWriteOption">A param.</param>
+    /// <param name="subscribedClient" type="GattSubscribedClient">A param.</param>
     /// </signature>
-  }
-
-
-  cls.prototype.writeClientCharacteristicConfigurationDescriptorWithResultAsync = function writeClientCharacteristicConfigurationDescriptorWithResultAsync(clientCharacteristicConfigurationDescriptorValue, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="clientCharacteristicConfigurationDescriptorValue" type="GattClientCharacteristicConfigurationDescriptorValue">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.getDescriptors = function getDescriptors(descriptorUuid) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="descriptorUuid" type="String">A param.</param>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  cls.prototype.getAllDescriptors = function getAllDescriptors() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  cls.convertShortIdToUuid = function convertShortIdToUuid(shortId) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="shortId" type="Number">A param.</param>
-    /// <returns type="String" />
-    /// </signature>
-    return new String();
   }
 
 
@@ -530,71 +704,93 @@ cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(val
     cls.prototype.off = function off(eventName, callback){}
   return cls;
 }) ();
-exports.GattCharacteristic = GattCharacteristic;
+exports.GattLocalCharacteristic = GattLocalCharacteristic;
 
-GattCharacteristicsResult = (function () {
-  var cls = function GattCharacteristicsResult() {
-    this.characteristics = new Object();
-    this.protocolError = new Number();
-    this.status = new GattCommunicationStatus();
+GattLocalCharacteristicParameters = (function () {
+  var cls = function GattLocalCharacteristicParameters() {
+    this.writeProtectionLevel = new GattProtectionLevel();
+    this.userDescription = new String();
+    this.staticValue = new Object();
+    this.readProtectionLevel = new GattProtectionLevel();
+    this.characteristicProperties = new GattCharacteristicProperties();
+    this.presentationFormats = new Object();
   };
   
 
   return cls;
 }) ();
-exports.GattCharacteristicsResult = GattCharacteristicsResult;
+exports.GattLocalCharacteristicParameters = GattLocalCharacteristicParameters;
 
-GattDescriptor = (function () {
-  var cls = function GattDescriptor() {
-    this.protectionLevel = new GattProtectionLevel();
-    this.attributeHandle = new Number();
+GattLocalCharacteristicResult = (function () {
+  var cls = function GattLocalCharacteristicResult() {
+    this.characteristic = new GattLocalCharacteristic();
+    this.error = new Number();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattLocalCharacteristicResult = GattLocalCharacteristicResult;
+
+GattLocalDescriptor = (function () {
+  var cls = function GattLocalDescriptor() {
+    this.readProtectionLevel = new GattProtectionLevel();
+    this.staticValue = new Object();
+    this.uuid = new String();
+    this.writeProtectionLevel = new GattProtectionLevel();
+  };
+  
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.GattLocalDescriptor = GattLocalDescriptor;
+
+GattLocalDescriptorParameters = (function () {
+  var cls = function GattLocalDescriptorParameters() {
+    this.writeProtectionLevel = new GattProtectionLevel();
+    this.staticValue = new Object();
+    this.readProtectionLevel = new GattProtectionLevel();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattLocalDescriptorParameters = GattLocalDescriptorParameters;
+
+GattLocalDescriptorResult = (function () {
+  var cls = function GattLocalDescriptorResult() {
+    this.descriptor = new GattLocalDescriptor();
+    this.error = new Number();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattLocalDescriptorResult = GattLocalDescriptorResult;
+
+GattLocalService = (function () {
+  var cls = function GattLocalService() {
+    this.characteristics = new Object();
     this.uuid = new String();
   };
   
 
-  cls.prototype.readValueAsync = function readValueAsync(callback) {
+  cls.prototype.createCharacteristicAsync = function createCharacteristicAsync(characteristicUuid, parameters, callback) {
     /// <signature>
     /// <summary>Function summary.</summary>
+    /// <param name="characteristicUuid" type="String">A param.</param>
+    /// <param name="parameters" type="GattLocalCharacteristicParameters">A param.</param>
     /// </signature>
-  }
-
-cls.prototype.readValueAsync = function readValueAsync(cacheMode, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="cacheMode" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.writeValueAsync = function writeValueAsync(value, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.writeValueWithResultAsync = function writeValueWithResultAsync(value, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.convertShortIdToUuid = function convertShortIdToUuid(shortId) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="shortId" type="Number">A param.</param>
-    /// <returns type="String" />
-    /// </signature>
-    return new String();
   }
 
 
   return cls;
 }) ();
-exports.GattDescriptor = GattDescriptor;
+exports.GattLocalService = GattLocalService;
 
 GattPresentationFormat = (function () {
   var cls = function GattPresentationFormat() {
@@ -624,64 +820,6 @@ GattPresentationFormat = (function () {
   return cls;
 }) ();
 exports.GattPresentationFormat = GattPresentationFormat;
-
-GattReadResult = (function () {
-  var cls = function GattReadResult() {
-    this.status = new GattCommunicationStatus();
-    this.value = new Object();
-    this.protocolError = new Number();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattReadResult = GattReadResult;
-
-GattReadClientCharacteristicConfigurationDescriptorResult = (function () {
-  var cls = function GattReadClientCharacteristicConfigurationDescriptorResult() {
-    this.clientCharacteristicConfigurationDescriptor = new GattClientCharacteristicConfigurationDescriptorValue();
-    this.status = new GattCommunicationStatus();
-    this.protocolError = new Number();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattReadClientCharacteristicConfigurationDescriptorResult = GattReadClientCharacteristicConfigurationDescriptorResult;
-
-GattValueChangedEventArgs = (function () {
-  var cls = function GattValueChangedEventArgs() {
-    this.characteristicValue = new Object();
-    this.timestamp = new Date();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattValueChangedEventArgs = GattValueChangedEventArgs;
-
-GattDescriptorsResult = (function () {
-  var cls = function GattDescriptorsResult() {
-    this.descriptors = new Object();
-    this.protocolError = new Number();
-    this.status = new GattCommunicationStatus();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattDescriptorsResult = GattDescriptorsResult;
-
-GattWriteResult = (function () {
-  var cls = function GattWriteResult() {
-    this.protocolError = new Number();
-    this.status = new GattCommunicationStatus();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattWriteResult = GattWriteResult;
 
 GattPresentationFormatTypes = (function () {
   var cls = function GattPresentationFormatTypes() {
@@ -719,141 +857,113 @@ GattPresentationFormatTypes = (function () {
 }) ();
 exports.GattPresentationFormatTypes = GattPresentationFormatTypes;
 
-GattServiceUuids = (function () {
-  var cls = function GattServiceUuids() {
+GattProtocolError = (function () {
+  var cls = function GattProtocolError() {
   };
   
 
-  cls.cyclingSpeedAndCadence = new String();
-  cls.battery = new String();
-  cls.bloodPressure = new String();
-  cls.genericAccess = new String();
-  cls.genericAttribute = new String();
-  cls.glucose = new String();
-  cls.healthThermometer = new String();
-  cls.heartRate = new String();
-  cls.runningSpeedAndCadence = new String();
-  cls.nextDstChange = new String();
-  cls.alertNotification = new String();
-  cls.currentTime = new String();
-  cls.cyclingPower = new String();
-  cls.deviceInformation = new String();
-  cls.humanInterfaceDevice = new String();
-  cls.immediateAlert = new String();
-  cls.linkLoss = new String();
-  cls.locationAndNavigation = new String();
-  cls.phoneAlertStatus = new String();
-  cls.referenceTimeUpdate = new String();
-  cls.scanParameters = new String();
-  cls.txPower = new String();
+  cls.attributeNotFound = new Number();
+  cls.attributeNotLong = new Number();
+  cls.insufficientAuthentication = new Number();
+  cls.insufficientAuthorization = new Number();
+  cls.insufficientEncryption = new Number();
+  cls.insufficientEncryptionKeySize = new Number();
+  cls.insufficientResources = new Number();
+  cls.invalidAttributeValueLength = new Number();
+  cls.invalidHandle = new Number();
+  cls.invalidOffset = new Number();
+  cls.invalidPdu = new Number();
+  cls.prepareQueueFull = new Number();
+  cls.readNotPermitted = new Number();
+  cls.requestNotSupported = new Number();
+  cls.unlikelyError = new Number();
+  cls.unsupportedGroupType = new Number();
+  cls.writeNotPermitted = new Number();
   return cls;
 }) ();
-exports.GattServiceUuids = GattServiceUuids;
+exports.GattProtocolError = GattProtocolError;
 
-GattCharacteristicUuids = (function () {
-  var cls = function GattCharacteristicUuids() {
+GattReadClientCharacteristicConfigurationDescriptorResult = (function () {
+  var cls = function GattReadClientCharacteristicConfigurationDescriptorResult() {
+    this.clientCharacteristicConfigurationDescriptor = new GattClientCharacteristicConfigurationDescriptorValue();
+    this.status = new GattCommunicationStatus();
+    this.protocolError = new Number();
   };
   
 
-  cls.batteryLevel = new String();
-  cls.bloodPressureFeature = new String();
-  cls.bloodPressureMeasurement = new String();
-  cls.bodySensorLocation = new String();
-  cls.cscFeature = new String();
-  cls.cscMeasurement = new String();
-  cls.glucoseFeature = new String();
-  cls.glucoseMeasurement = new String();
-  cls.glucoseMeasurementContext = new String();
-  cls.heartRateControlPoint = new String();
-  cls.heartRateMeasurement = new String();
-  cls.intermediateCuffPressure = new String();
-  cls.intermediateTemperature = new String();
-  cls.measurementInterval = new String();
-  cls.recordAccessControlPoint = new String();
-  cls.rscFeature = new String();
-  cls.rscMeasurement = new String();
-  cls.sCControlPoint = new String();
-  cls.sensorLocation = new String();
-  cls.temperatureMeasurement = new String();
-  cls.temperatureType = new String();
-  cls.lnFeature = new String();
-  cls.alertCategoryId = new String();
-  cls.alertCategoryIdBitMask = new String();
-  cls.alertLevel = new String();
-  cls.alertNotificationControlPoint = new String();
-  cls.alertStatus = new String();
-  cls.bootKeyboardInputReport = new String();
-  cls.bootKeyboardOutputReport = new String();
-  cls.bootMouseInputReport = new String();
-  cls.currentTime = new String();
-  cls.cyclingPowerControlPoint = new String();
-  cls.cyclingPowerFeature = new String();
-  cls.cyclingPowerMeasurement = new String();
-  cls.cyclingPowerVector = new String();
-  cls.dateTime = new String();
-  cls.dayDateTime = new String();
-  cls.dayOfWeek = new String();
-  cls.dstOffset = new String();
-  cls.exactTime256 = new String();
-  cls.firmwareRevisionString = new String();
-  cls.gapAppearance = new String();
-  cls.gapDeviceName = new String();
-  cls.gapPeripheralPreferredConnectionParameters = new String();
-  cls.gapPeripheralPrivacyFlag = new String();
-  cls.gapReconnectionAddress = new String();
-  cls.gattServiceChanged = new String();
-  cls.hardwareRevisionString = new String();
-  cls.hidControlPoint = new String();
-  cls.hidInformation = new String();
-  cls.ieee1107320601RegulatoryCertificationDataList = new String();
-  cls.lnControlPoint = new String();
-  cls.localTimeInformation = new String();
-  cls.locationAndSpeed = new String();
-  cls.manufacturerNameString = new String();
-  cls.modelNumberString = new String();
-  cls.navigation = new String();
-  cls.newAlert = new String();
-  cls.pnpId = new String();
-  cls.positionQuality = new String();
-  cls.protocolMode = new String();
-  cls.referenceTimeInformation = new String();
-  cls.report = new String();
-  cls.reportMap = new String();
-  cls.ringerControlPoint = new String();
-  cls.ringerSetting = new String();
-  cls.scanIntervalWindow = new String();
-  cls.scanRefresh = new String();
-  cls.serialNumberString = new String();
-  cls.softwareRevisionString = new String();
-  cls.supportUnreadAlertCategory = new String();
-  cls.supportedNewAlertCategory = new String();
-  cls.systemId = new String();
-  cls.timeAccuracy = new String();
-  cls.timeSource = new String();
-  cls.timeUpdateControlPoint = new String();
-  cls.timeUpdateState = new String();
-  cls.timeWithDst = new String();
-  cls.timeZone = new String();
-  cls.txPowerLevel = new String();
-  cls.unreadAlertStatus = new String();
   return cls;
 }) ();
-exports.GattCharacteristicUuids = GattCharacteristicUuids;
+exports.GattReadClientCharacteristicConfigurationDescriptorResult = GattReadClientCharacteristicConfigurationDescriptorResult;
 
-GattDescriptorUuids = (function () {
-  var cls = function GattDescriptorUuids() {
+GattReadRequest = (function () {
+  var cls = function GattReadRequest() {
+    this.length = new Number();
+    this.offset = new Number();
+    this.state = new GattRequestState();
   };
   
 
-  cls.characteristicAggregateFormat = new String();
-  cls.characteristicExtendedProperties = new String();
-  cls.characteristicPresentationFormat = new String();
-  cls.characteristicUserDescription = new String();
-  cls.clientCharacteristicConfiguration = new String();
-  cls.serverCharacteristicConfiguration = new String();
+  cls.prototype.respondWithValue = function respondWithValue(value) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="value" type="Object">A param.</param>
+    /// </signature>
+  }
+
+
+  cls.prototype.respondWithProtocolError = function respondWithProtocolError(protocolError) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="protocolError" type="Number">A param.</param>
+    /// </signature>
+  }
+
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
   return cls;
 }) ();
-exports.GattDescriptorUuids = GattDescriptorUuids;
+exports.GattReadRequest = GattReadRequest;
+
+GattReadRequestedEventArgs = (function () {
+  var cls = function GattReadRequestedEventArgs() {
+    this.session = new GattSession();
+  };
+  
+
+  cls.prototype.getRequestAsync = function getRequestAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.getDeferral = function getDeferral() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  return cls;
+}) ();
+exports.GattReadRequestedEventArgs = GattReadRequestedEventArgs;
+
+GattReadResult = (function () {
+  var cls = function GattReadResult() {
+    this.status = new GattCommunicationStatus();
+    this.value = new Object();
+    this.protocolError = new Number();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattReadResult = GattReadResult;
 
 GattReliableWriteTransaction = (function () {
   var cls = function GattReliableWriteTransaction() {
@@ -887,74 +997,16 @@ GattReliableWriteTransaction = (function () {
 }) ();
 exports.GattReliableWriteTransaction = GattReliableWriteTransaction;
 
-GattServiceProviderAdvertisingParameters = (function () {
-  var cls = function GattServiceProviderAdvertisingParameters() {
-    this.isDiscoverable = new Boolean();
-    this.isConnectable = new Boolean();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattServiceProviderAdvertisingParameters = GattServiceProviderAdvertisingParameters;
-
-GattLocalCharacteristicParameters = (function () {
-  var cls = function GattLocalCharacteristicParameters() {
-    this.writeProtectionLevel = new GattProtectionLevel();
-    this.userDescription = new String();
-    this.staticValue = new Object();
-    this.readProtectionLevel = new GattProtectionLevel();
-    this.characteristicProperties = new GattCharacteristicProperties();
-    this.presentationFormats = new Object();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattLocalCharacteristicParameters = GattLocalCharacteristicParameters;
-
-GattLocalDescriptorParameters = (function () {
-  var cls = function GattLocalDescriptorParameters() {
-    this.writeProtectionLevel = new GattProtectionLevel();
-    this.staticValue = new Object();
-    this.readProtectionLevel = new GattProtectionLevel();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattLocalDescriptorParameters = GattLocalDescriptorParameters;
-
-GattServiceProviderResult = (function () {
-  var cls = function GattServiceProviderResult() {
+GattRequestStateChangedEventArgs = (function () {
+  var cls = function GattRequestStateChangedEventArgs() {
     this.error = new Number();
-    this.serviceProvider = new GattServiceProvider();
+    this.state = new GattRequestState();
   };
   
 
   return cls;
 }) ();
-exports.GattServiceProviderResult = GattServiceProviderResult;
-
-GattLocalService = (function () {
-  var cls = function GattLocalService() {
-    this.characteristics = new Object();
-    this.uuid = new String();
-  };
-  
-
-  cls.prototype.createCharacteristicAsync = function createCharacteristicAsync(characteristicUuid, parameters, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="characteristicUuid" type="String">A param.</param>
-    /// <param name="parameters" type="GattLocalCharacteristicParameters">A param.</param>
-    /// </signature>
-  }
-
-
-  return cls;
-}) ();
-exports.GattLocalService = GattLocalService;
+exports.GattRequestStateChangedEventArgs = GattRequestStateChangedEventArgs;
 
 GattServiceProvider = (function () {
   var cls = function GattServiceProvider() {
@@ -1012,54 +1064,81 @@ GattServiceProviderAdvertisementStatusChangedEventArgs = (function () {
 }) ();
 exports.GattServiceProviderAdvertisementStatusChangedEventArgs = GattServiceProviderAdvertisementStatusChangedEventArgs;
 
-GattLocalCharacteristicResult = (function () {
-  var cls = function GattLocalCharacteristicResult() {
-    this.characteristic = new GattLocalCharacteristic();
-    this.error = new Number();
+GattServiceProviderAdvertisingParameters = (function () {
+  var cls = function GattServiceProviderAdvertisingParameters() {
+    this.isDiscoverable = new Boolean();
+    this.isConnectable = new Boolean();
+    this.serviceData = new Object();
   };
   
 
   return cls;
 }) ();
-exports.GattLocalCharacteristicResult = GattLocalCharacteristicResult;
+exports.GattServiceProviderAdvertisingParameters = GattServiceProviderAdvertisingParameters;
 
-GattLocalCharacteristic = (function () {
-  var cls = function GattLocalCharacteristic() {
-    this.characteristicProperties = new GattCharacteristicProperties();
-    this.descriptors = new Object();
-    this.presentationFormats = new Object();
-    this.readProtectionLevel = new GattProtectionLevel();
-    this.staticValue = new Object();
-    this.subscribedClients = new Object();
-    this.userDescription = new String();
-    this.uuid = new String();
-    this.writeProtectionLevel = new GattProtectionLevel();
+GattServiceProviderResult = (function () {
+  var cls = function GattServiceProviderResult() {
+    this.error = new Number();
+    this.serviceProvider = new GattServiceProvider();
   };
   
 
-  cls.prototype.createDescriptorAsync = function createDescriptorAsync(descriptorUuid, parameters, callback) {
+  return cls;
+}) ();
+exports.GattServiceProviderResult = GattServiceProviderResult;
+
+GattServiceUuids = (function () {
+  var cls = function GattServiceUuids() {
+  };
+  
+
+  cls.cyclingSpeedAndCadence = new String();
+  cls.battery = new String();
+  cls.bloodPressure = new String();
+  cls.genericAccess = new String();
+  cls.genericAttribute = new String();
+  cls.glucose = new String();
+  cls.healthThermometer = new String();
+  cls.heartRate = new String();
+  cls.runningSpeedAndCadence = new String();
+  cls.nextDstChange = new String();
+  cls.alertNotification = new String();
+  cls.currentTime = new String();
+  cls.cyclingPower = new String();
+  cls.deviceInformation = new String();
+  cls.humanInterfaceDevice = new String();
+  cls.immediateAlert = new String();
+  cls.linkLoss = new String();
+  cls.locationAndNavigation = new String();
+  cls.phoneAlertStatus = new String();
+  cls.referenceTimeUpdate = new String();
+  cls.scanParameters = new String();
+  cls.txPower = new String();
+  return cls;
+}) ();
+exports.GattServiceUuids = GattServiceUuids;
+
+GattSession = (function () {
+  var cls = function GattSession() {
+    this.maintainConnection = new Boolean();
+    this.canMaintainConnection = new Boolean();
+    this.deviceId = new Object();
+    this.maxPduSize = new Number();
+    this.sessionStatus = new GattSessionStatus();
+  };
+  
+
+  cls.prototype.close = function close() {
+}
+
+
+  cls.fromDeviceIdAsync = function fromDeviceIdAsync(deviceId, callback) {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="descriptorUuid" type="String">A param.</param>
-    /// <param name="parameters" type="GattLocalDescriptorParameters">A param.</param>
+    /// <param name="deviceId" type="Object">A param.</param>
     /// </signature>
   }
 
-
-  cls.prototype.notifyValueAsync = function notifyValueAsync(value, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// </signature>
-  }
-
-cls.prototype.notifyValueAsync = function notifyValueAsync(value, subscribedClient, callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// <param name="subscribedClient" type="GattSubscribedClient">A param.</param>
-    /// </signature>
-  }
 
 
     cls.prototype.addListener = function addListener(eventName, callback){}
@@ -1068,35 +1147,18 @@ cls.prototype.notifyValueAsync = function notifyValueAsync(value, subscribedClie
     cls.prototype.off = function off(eventName, callback){}
   return cls;
 }) ();
-exports.GattLocalCharacteristic = GattLocalCharacteristic;
+exports.GattSession = GattSession;
 
-GattLocalDescriptorResult = (function () {
-  var cls = function GattLocalDescriptorResult() {
-    this.descriptor = new GattLocalDescriptor();
+GattSessionStatusChangedEventArgs = (function () {
+  var cls = function GattSessionStatusChangedEventArgs() {
     this.error = new Number();
+    this.status = new GattSessionStatus();
   };
   
 
   return cls;
 }) ();
-exports.GattLocalDescriptorResult = GattLocalDescriptorResult;
-
-GattLocalDescriptor = (function () {
-  var cls = function GattLocalDescriptor() {
-    this.readProtectionLevel = new GattProtectionLevel();
-    this.staticValue = new Object();
-    this.uuid = new String();
-    this.writeProtectionLevel = new GattProtectionLevel();
-  };
-  
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.GattLocalDescriptor = GattLocalDescriptor;
+exports.GattSessionStatusChangedEventArgs = GattSessionStatusChangedEventArgs;
 
 GattSubscribedClient = (function () {
   var cls = function GattSubscribedClient() {
@@ -1113,112 +1175,16 @@ GattSubscribedClient = (function () {
 }) ();
 exports.GattSubscribedClient = GattSubscribedClient;
 
-GattReadRequestedEventArgs = (function () {
-  var cls = function GattReadRequestedEventArgs() {
-    this.session = new GattSession();
-  };
-  
-
-  cls.prototype.getRequestAsync = function getRequestAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.getDeferral = function getDeferral() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  return cls;
-}) ();
-exports.GattReadRequestedEventArgs = GattReadRequestedEventArgs;
-
-GattWriteRequestedEventArgs = (function () {
-  var cls = function GattWriteRequestedEventArgs() {
-    this.session = new GattSession();
-  };
-  
-
-  cls.prototype.getRequestAsync = function getRequestAsync(callback) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.getDeferral = function getDeferral() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  return cls;
-}) ();
-exports.GattWriteRequestedEventArgs = GattWriteRequestedEventArgs;
-
-GattClientNotificationResult = (function () {
-  var cls = function GattClientNotificationResult() {
-    this.protocolError = new Number();
-    this.status = new GattCommunicationStatus();
-    this.subscribedClient = new GattSubscribedClient();
+GattValueChangedEventArgs = (function () {
+  var cls = function GattValueChangedEventArgs() {
+    this.characteristicValue = new Object();
+    this.timestamp = new Date();
   };
   
 
   return cls;
 }) ();
-exports.GattClientNotificationResult = GattClientNotificationResult;
-
-GattReadRequest = (function () {
-  var cls = function GattReadRequest() {
-    this.length = new Number();
-    this.offset = new Number();
-    this.state = new GattRequestState();
-  };
-  
-
-  cls.prototype.respondWithValue = function respondWithValue(value) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="value" type="Object">A param.</param>
-    /// </signature>
-  }
-
-
-  cls.prototype.respondWithProtocolError = function respondWithProtocolError(protocolError) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="protocolError" type="Number">A param.</param>
-    /// </signature>
-  }
-
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.GattReadRequest = GattReadRequest;
-
-GattRequestStateChangedEventArgs = (function () {
-  var cls = function GattRequestStateChangedEventArgs() {
-    this.error = new Number();
-    this.state = new GattRequestState();
-  };
-  
-
-  return cls;
-}) ();
-exports.GattRequestStateChangedEventArgs = GattRequestStateChangedEventArgs;
+exports.GattValueChangedEventArgs = GattValueChangedEventArgs;
 
 GattWriteRequest = (function () {
   var cls = function GattWriteRequest() {
@@ -1251,4 +1217,41 @@ GattWriteRequest = (function () {
   return cls;
 }) ();
 exports.GattWriteRequest = GattWriteRequest;
+
+GattWriteRequestedEventArgs = (function () {
+  var cls = function GattWriteRequestedEventArgs() {
+    this.session = new GattSession();
+  };
+  
+
+  cls.prototype.getRequestAsync = function getRequestAsync(callback) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.getDeferral = function getDeferral() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  return cls;
+}) ();
+exports.GattWriteRequestedEventArgs = GattWriteRequestedEventArgs;
+
+GattWriteResult = (function () {
+  var cls = function GattWriteResult() {
+    this.protocolError = new Number();
+    this.status = new GattCommunicationStatus();
+  };
+  
+
+  return cls;
+}) ();
+exports.GattWriteResult = GattWriteResult;
 

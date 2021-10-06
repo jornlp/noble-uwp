@@ -1,9 +1,9 @@
 declare module "windows.devices.radios" {
-  export enum RadioState {
-    unknown,
-    on,
-    off,
-    disabled,
+  export enum RadioAccessStatus {
+    unspecified,
+    allowed,
+    deniedByUser,
+    deniedBySystem,
   }
 
   export enum RadioKind {
@@ -14,11 +14,11 @@ declare module "windows.devices.radios" {
     fM,
   }
 
-  export enum RadioAccessStatus {
-    unspecified,
-    allowed,
-    deniedByUser,
-    deniedBySystem,
+  export enum RadioState {
+    unknown,
+    on,
+    off,
+    disabled,
   }
 
   export class Radio {

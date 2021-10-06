@@ -1,9 +1,4 @@
 declare module "windows.devices.bluetooth.advertisement" {
-  export enum BluetoothLEScanningMode {
-    passive,
-    active,
-  }
-
   export enum BluetoothLEAdvertisementFlags {
     none,
     limitedDiscoverableMode,
@@ -11,6 +6,15 @@ declare module "windows.devices.bluetooth.advertisement" {
     classicNotSupported,
     dualModeControllerCapable,
     dualModeHostCapable,
+  }
+
+  export enum BluetoothLEAdvertisementPublisherStatus {
+    created,
+    waiting,
+    started,
+    stopping,
+    stopped,
+    aborted,
   }
 
   export enum BluetoothLEAdvertisementType {
@@ -29,29 +33,9 @@ declare module "windows.devices.bluetooth.advertisement" {
     aborted,
   }
 
-  export enum BluetoothLEAdvertisementPublisherStatus {
-    created,
-    waiting,
-    started,
-    stopping,
-    stopped,
-    aborted,
-  }
-
-  export class BluetoothLEManufacturerData {
-    data: Object;
-    companyId: Number;
-    constructor();
-    constructor(companyId: Number, data: Object);
-
-  }
-
-  export class BluetoothLEAdvertisementDataSection {
-    dataType: Number;
-    data: Object;
-    constructor();
-    constructor(dataType: Number, data: Object);
-
+  export enum BluetoothLEScanningMode {
+    passive,
+    active,
   }
 
   export class BluetoothLEAdvertisement {
@@ -77,6 +61,41 @@ declare module "windows.devices.bluetooth.advertisement" {
 
   }
 
+  export class BluetoothLEAdvertisementDataSection {
+    dataType: Number;
+    data: Object;
+    constructor();
+    constructor(dataType: Number, data: Object);
+
+  }
+
+  export class BluetoothLEAdvertisementDataTypes {
+    static advertisingInterval: Number;
+    static appearance: Number;
+    static completeLocalName: Number;
+    static completeService128BitUuids: Number;
+    static completeService16BitUuids: Number;
+    static completeService32BitUuids: Number;
+    static flags: Number;
+    static incompleteService128BitUuids: Number;
+    static incompleteService16BitUuids: Number;
+    static incompleteService32BitUuids: Number;
+    static manufacturerSpecificData: Number;
+    static publicTargetAddress: Number;
+    static randomTargetAddress: Number;
+    static serviceData128BitUuids: Number;
+    static serviceData16BitUuids: Number;
+    static serviceData32BitUuids: Number;
+    static serviceSolicitation128BitUuids: Number;
+    static serviceSolicitation16BitUuids: Number;
+    static serviceSolicitation32BitUuids: Number;
+    static shortenedLocalName: Number;
+    static slaveConnectionIntervalRange: Number;
+    static txPowerLevel: Number;
+    constructor();
+
+  }
+
   export class BluetoothLEAdvertisementFilter {
     advertisement: BluetoothLEAdvertisement;
     bytePatterns: Object;
@@ -84,8 +103,42 @@ declare module "windows.devices.bluetooth.advertisement" {
 
   }
 
-  export class BluetoothLEAdvertisementWatcherStoppedEventArgs {
+  export class BluetoothLEAdvertisementPublisher {
+    advertisement: BluetoothLEAdvertisement;
+    status: BluetoothLEAdvertisementPublisherStatus;
+    constructor();
+    constructor(advertisement: BluetoothLEAdvertisement);
+
+    start(): void;
+
+    stop(): void;
+
+    addListener(type: "StatusChanged", listener: (ev: Event) => void): void ;
+    removeListener(type: "StatusChanged", listener: (ev: Event) => void): void ;
+    on(type: "StatusChanged", listener: (ev: Event) => void): void ;
+    off(type: "StatusChanged", listener: (ev: Event) => void): void ;
+    
+    addListener(type: string, listener: (ev: Event) => void): void ;
+    removeListener(type: string, listener: (ev: Event) => void): void ;
+    on(type: string, listener: (ev: Event) => void): void ;
+    off(type: string, listener: (ev: Event) => void): void ;
+    
+
+  }
+
+  export class BluetoothLEAdvertisementPublisherStatusChangedEventArgs {
     error: Number;
+    status: BluetoothLEAdvertisementPublisherStatus;
+    constructor();
+
+  }
+
+  export class BluetoothLEAdvertisementReceivedEventArgs {
+    advertisement: BluetoothLEAdvertisement;
+    advertisementType: BluetoothLEAdvertisementType;
+    bluetoothAddress: Number;
+    rawSignalStrengthInDBm: Number;
+    timestamp: Date;
     constructor();
 
   }
@@ -124,70 +177,17 @@ declare module "windows.devices.bluetooth.advertisement" {
 
   }
 
-  export class BluetoothLEAdvertisementReceivedEventArgs {
-    advertisement: BluetoothLEAdvertisement;
-    advertisementType: BluetoothLEAdvertisementType;
-    bluetoothAddress: Number;
-    rawSignalStrengthInDBm: Number;
-    timestamp: Date;
-    constructor();
-
-  }
-
-  export class BluetoothLEAdvertisementDataTypes {
-    static advertisingInterval: Number;
-    static appearance: Number;
-    static completeLocalName: Number;
-    static completeService128BitUuids: Number;
-    static completeService16BitUuids: Number;
-    static completeService32BitUuids: Number;
-    static flags: Number;
-    static incompleteService128BitUuids: Number;
-    static incompleteService16BitUuids: Number;
-    static incompleteService32BitUuids: Number;
-    static manufacturerSpecificData: Number;
-    static publicTargetAddress: Number;
-    static randomTargetAddress: Number;
-    static serviceData128BitUuids: Number;
-    static serviceData16BitUuids: Number;
-    static serviceData32BitUuids: Number;
-    static serviceSolicitation128BitUuids: Number;
-    static serviceSolicitation16BitUuids: Number;
-    static serviceSolicitation32BitUuids: Number;
-    static shortenedLocalName: Number;
-    static slaveConnectionIntervalRange: Number;
-    static txPowerLevel: Number;
-    constructor();
-
-  }
-
-  export class BluetoothLEAdvertisementPublisherStatusChangedEventArgs {
+  export class BluetoothLEAdvertisementWatcherStoppedEventArgs {
     error: Number;
-    status: BluetoothLEAdvertisementPublisherStatus;
     constructor();
 
   }
 
-  export class BluetoothLEAdvertisementPublisher {
-    advertisement: BluetoothLEAdvertisement;
-    status: BluetoothLEAdvertisementPublisherStatus;
+  export class BluetoothLEManufacturerData {
+    data: Object;
+    companyId: Number;
     constructor();
-    constructor(advertisement: BluetoothLEAdvertisement);
-
-    start(): void;
-
-    stop(): void;
-
-    addListener(type: "StatusChanged", listener: (ev: Event) => void): void ;
-    removeListener(type: "StatusChanged", listener: (ev: Event) => void): void ;
-    on(type: "StatusChanged", listener: (ev: Event) => void): void ;
-    off(type: "StatusChanged", listener: (ev: Event) => void): void ;
-    
-    addListener(type: string, listener: (ev: Event) => void): void ;
-    removeListener(type: string, listener: (ev: Event) => void): void ;
-    on(type: string, listener: (ev: Event) => void): void ;
-    off(type: string, listener: (ev: Event) => void): void ;
-    
+    constructor(companyId: Number, data: Object);
 
   }
 

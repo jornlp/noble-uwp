@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-if "%nodertcmd%"=="" SET nodertcmd=.\NodeRTCmd.exe
-if "%nodertwinmd%"=="" SET nodertwinmd=.\Windows.winmd
+if "%nodertcmd%"=="" SET nodertcmd="NodeRTCmd.exe"
+if "%nodertwinmd%"=="" SET nodertwinmd="C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd"
 
 
 call :genrt Windows.Foundation %1
@@ -15,7 +15,7 @@ call :genrt Windows.Devices.Radios %1
 goto :eof
 
 :genrt
-"%nodertcmd%" --winmd "%nodertwinmd%" --nobuild --namespace %1 --outdir . %2
+"%nodertcmd%" --winmd %nodertwinmd% --nobuild --namespace %1 --outdir . %2
 if errorlevel 1 exit
 goto :eof
 

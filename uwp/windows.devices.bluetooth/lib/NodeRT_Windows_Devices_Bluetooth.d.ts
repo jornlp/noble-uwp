@@ -1,7 +1,31 @@
 declare module "windows.devices.bluetooth" {
+  export enum BluetoothAddressType {
+    public,
+    random,
+    unspecified,
+  }
+
   export enum BluetoothCacheMode {
     cached,
     uncached,
+  }
+
+  export enum BluetoothConnectionStatus {
+    disconnected,
+    connected,
+  }
+
+  export enum BluetoothError {
+    success,
+    radioNotAvailable,
+    resourceInUse,
+    deviceNotConnected,
+    otherError,
+    disabledByPolicy,
+    notSupported,
+    disabledByUser,
+    consentRequired,
+    transportNotSupported,
   }
 
   export enum BluetoothMajorClass {
@@ -104,30 +128,6 @@ declare module "windows.devices.bluetooth" {
     informationService,
   }
 
-  export enum BluetoothConnectionStatus {
-    disconnected,
-    connected,
-  }
-
-  export enum BluetoothError {
-    success,
-    radioNotAvailable,
-    resourceInUse,
-    deviceNotConnected,
-    otherError,
-    disabledByPolicy,
-    notSupported,
-    disabledByUser,
-    consentRequired,
-    transportNotSupported,
-  }
-
-  export enum BluetoothAddressType {
-    public,
-    random,
-    unspecified,
-  }
-
   export class BluetoothAdapter {
     bluetoothAddress: Number;
     deviceId: String;
@@ -136,6 +136,8 @@ declare module "windows.devices.bluetooth" {
     isClassicSupported: Boolean;
     isLowEnergySupported: Boolean;
     isPeripheralRoleSupported: Boolean;
+    areClassicSecureConnectionsSupported: Boolean;
+    areLowEnergySecureConnectionsSupported: Boolean;
     constructor();
 
     static fromIdAsync(deviceId: String, callback: (error: Error, result: BluetoothAdapter) => void): void ;
@@ -151,21 +153,17 @@ declare module "windows.devices.bluetooth" {
 
   }
 
-  export class BluetoothDeviceId {
-    id: String;
-    isClassicDevice: Boolean;
-    isLowEnergyDevice: Boolean;
+  export class BluetoothClassOfDevice {
+    majorClass: BluetoothMajorClass;
+    minorClass: BluetoothMinorClass;
+    rawValue: Number;
+    serviceCapabilities: BluetoothServiceCapabilities;
     constructor();
 
-  }
-
-  export class BluetoothUuidHelper {
-    constructor();
-
-    static fromShortId(shortId: Number): String;
+    static fromRawValue(rawValue: Number): BluetoothClassOfDevice;
 
 
-    static tryGetShortId(uuid: String): Number;
+    static fromParts(majorClass: BluetoothMajorClass, minorClass: BluetoothMinorClass, serviceCapabilities: BluetoothServiceCapabilities): BluetoothClassOfDevice;
 
 
   }
@@ -181,6 +179,8 @@ declare module "windows.devices.bluetooth" {
     sdpRecords: Object;
     deviceInformation: Object;
     deviceAccessInformation: Object;
+    bluetoothDeviceId: BluetoothDeviceId;
+    wasSecureConnectionUsedForPairing: Boolean;
     constructor();
 
     static fromIdAsync(deviceId: String, callback: (error: Error, result: BluetoothDevice) => void): void ;
@@ -242,17 +242,27 @@ declare module "windows.devices.bluetooth" {
 
   }
 
-  export class BluetoothClassOfDevice {
-    majorClass: BluetoothMajorClass;
-    minorClass: BluetoothMinorClass;
-    rawValue: Number;
-    serviceCapabilities: BluetoothServiceCapabilities;
+  export class BluetoothDeviceId {
+    id: String;
+    isClassicDevice: Boolean;
+    isLowEnergyDevice: Boolean;
     constructor();
 
-    static fromRawValue(rawValue: Number): BluetoothClassOfDevice;
+    static fromId(deviceId: String): BluetoothDeviceId;
 
 
-    static fromParts(majorClass: BluetoothMajorClass, minorClass: BluetoothMinorClass, serviceCapabilities: BluetoothServiceCapabilities): BluetoothClassOfDevice;
+  }
+
+  export class BluetoothLEAppearance {
+    category: Number;
+    rawValue: Number;
+    subCategory: Number;
+    constructor();
+
+    static fromRawValue(rawValue: Number): BluetoothLEAppearance;
+
+
+    static fromParts(appearanceCategory: Number, appearanceSubCategory: Number): BluetoothLEAppearance;
 
 
   }
@@ -317,20 +327,6 @@ declare module "windows.devices.bluetooth" {
 
   }
 
-  export class BluetoothLEAppearance {
-    category: Number;
-    rawValue: Number;
-    subCategory: Number;
-    constructor();
-
-    static fromRawValue(rawValue: Number): BluetoothLEAppearance;
-
-
-    static fromParts(appearanceCategory: Number, appearanceSubCategory: Number): BluetoothLEAppearance;
-
-
-  }
-
   export class BluetoothLEDevice {
     bluetoothAddress: Number;
     connectionStatus: BluetoothConnectionStatus;
@@ -341,6 +337,8 @@ declare module "windows.devices.bluetooth" {
     bluetoothAddressType: BluetoothAddressType;
     deviceInformation: Object;
     deviceAccessInformation: Object;
+    bluetoothDeviceId: BluetoothDeviceId;
+    wasSecureConnectionUsedForPairing: Boolean;
     constructor();
 
     static fromBluetoothAddressAsync(bluetoothAddress: Number, bluetoothAddressType: BluetoothAddressType, callback: (error: Error, result: BluetoothLEDevice) => void): void ;
@@ -409,6 +407,17 @@ declare module "windows.devices.bluetooth" {
     outOfRangeThresholdInDBm: Number;
     inRangeThresholdInDBm: Number;
     constructor();
+
+  }
+
+  export class BluetoothUuidHelper {
+    constructor();
+
+    static fromShortId(shortId: Number): String;
+
+
+    static tryGetShortId(uuid: String): Number;
+
 
   }
 

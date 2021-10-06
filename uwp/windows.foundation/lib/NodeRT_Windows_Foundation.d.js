@@ -16,6 +16,14 @@ UniversalApiContract = (function () {
 exports.UniversalApiContract = UniversalApiContract;
 
 
+_AsyncStatus = function () {
+  this.canceled = 0;
+  this.completed = 1;
+  this.error = 2;
+  this.started = 3;
+}
+exports.AsyncStatus = new _AsyncStatus();
+
 _PropertyType = function () {
   this.empty = 0;
   this.uInt8 = 1;
@@ -61,13 +69,206 @@ _PropertyType = function () {
 }
 exports.PropertyType = new _PropertyType();
 
-_AsyncStatus = function () {
-  this.canceled = 0;
-  this.completed = 1;
-  this.error = 2;
-  this.started = 3;
+Deferral = (function () {
+  var cls = function Deferral() {
+  };
+  
+var cls = function Deferral(handler) {
+};
+
+
+  cls.prototype.complete = function complete() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.close = function close() {
 }
-exports.AsyncStatus = new _AsyncStatus();
+
+
+  return cls;
+}) ();
+exports.Deferral = Deferral;
+
+GuidHelper = (function () {
+  var cls = function GuidHelper() {
+  };
+  
+
+  cls.createNewGuid = function createNewGuid() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="String" />
+    /// </signature>
+    return new String();
+  }
+
+
+  cls.equals = function equals(target, value) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="target" type="String">A param.</param>
+    /// <param name="value" type="String">A param.</param>
+    /// <returns type="Boolean" />
+    /// </signature>
+    return new Boolean();
+  }
+
+
+  cls.empty = new String();
+  return cls;
+}) ();
+exports.GuidHelper = GuidHelper;
+
+IAsyncAction = (function () {
+  var cls = function IAsyncAction() {
+    this.completed = new Object();
+  };
+  
+
+  cls.prototype.getResults = function getResults() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  return cls;
+}) ();
+exports.IAsyncAction = IAsyncAction;
+
+IAsyncInfo = (function () {
+  var cls = function IAsyncInfo() {
+    this.errorCode = new Number();
+    this.id = new Number();
+    this.status = new AsyncStatus();
+  };
+  
+
+  cls.prototype.cancel = function cancel() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.close = function close() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  return cls;
+}) ();
+exports.IAsyncInfo = IAsyncInfo;
+
+IGetActivationFactory = (function () {
+  var cls = function IGetActivationFactory() {
+  };
+  
+
+  cls.prototype.getActivationFactory = function getActivationFactory(activatableClassId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="activatableClassId" type="String">A param.</param>
+    /// <returns type="Object" />
+    /// </signature>
+    return new Object();
+  }
+
+
+  return cls;
+}) ();
+exports.IGetActivationFactory = IGetActivationFactory;
+
+IMemoryBuffer = (function () {
+  var cls = function IMemoryBuffer() {
+  };
+  
+
+  cls.prototype.createReference = function createReference() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="IMemoryBufferReference" />
+    /// </signature>
+    return new IMemoryBufferReference();
+  }
+
+
+  return cls;
+}) ();
+exports.IMemoryBuffer = IMemoryBuffer;
+
+IMemoryBufferReference = (function () {
+  var cls = function IMemoryBufferReference() {
+    this.capacity = new Number();
+  };
+  
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.IMemoryBufferReference = IMemoryBufferReference;
+
+IStringable = (function () {
+  var cls = function IStringable() {
+  };
+  
+
+  cls.prototype.toString = function toString() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="String" />
+    /// </signature>
+    return new String();
+  }
+
+
+  return cls;
+}) ();
+exports.IStringable = IStringable;
+
+IWwwFormUrlDecoderEntry = (function () {
+  var cls = function IWwwFormUrlDecoderEntry() {
+    this.name = new String();
+    this.value = new String();
+  };
+  
+
+  return cls;
+}) ();
+exports.IWwwFormUrlDecoderEntry = IWwwFormUrlDecoderEntry;
+
+MemoryBuffer = (function () {
+  var cls = function MemoryBuffer() {
+  };
+  
+var cls = function MemoryBuffer(capacity) {
+};
+
+
+  cls.prototype.createReference = function createReference() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <returns type="IMemoryBufferReference" />
+    /// </signature>
+    return new IMemoryBufferReference();
+  }
+
+
+  cls.prototype.close = function close() {
+}
+
+
+  return cls;
+}) ();
+exports.MemoryBuffer = MemoryBuffer;
 
 PropertyValue = (function () {
   var cls = function PropertyValue() {
@@ -467,147 +668,6 @@ PropertyValue = (function () {
 }) ();
 exports.PropertyValue = PropertyValue;
 
-IStringable = (function () {
-  var cls = function IStringable() {
-  };
-  
-
-  cls.prototype.toString = function toString() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="String" />
-    /// </signature>
-    return new String();
-  }
-
-
-  return cls;
-}) ();
-exports.IStringable = IStringable;
-
-Deferral = (function () {
-  var cls = function Deferral() {
-  };
-  
-var cls = function Deferral(handler) {
-};
-
-
-  cls.prototype.complete = function complete() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.close = function close() {
-}
-
-
-  return cls;
-}) ();
-exports.Deferral = Deferral;
-
-IAsyncInfo = (function () {
-  var cls = function IAsyncInfo() {
-    this.errorCode = new Number();
-    this.id = new Number();
-    this.status = new AsyncStatus();
-  };
-  
-
-  cls.prototype.cancel = function cancel() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.close = function close() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  return cls;
-}) ();
-exports.IAsyncInfo = IAsyncInfo;
-
-IAsyncAction = (function () {
-  var cls = function IAsyncAction() {
-    this.completed = new Object();
-  };
-  
-
-  cls.prototype.getResults = function getResults() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  return cls;
-}) ();
-exports.IAsyncAction = IAsyncAction;
-
-IMemoryBufferReference = (function () {
-  var cls = function IMemoryBufferReference() {
-    this.capacity = new Number();
-  };
-  
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
-  return cls;
-}) ();
-exports.IMemoryBufferReference = IMemoryBufferReference;
-
-IMemoryBuffer = (function () {
-  var cls = function IMemoryBuffer() {
-  };
-  
-
-  cls.prototype.createReference = function createReference() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="IMemoryBufferReference" />
-    /// </signature>
-    return new IMemoryBufferReference();
-  }
-
-
-  return cls;
-}) ();
-exports.IMemoryBuffer = IMemoryBuffer;
-
-MemoryBuffer = (function () {
-  var cls = function MemoryBuffer() {
-  };
-  
-var cls = function MemoryBuffer(capacity) {
-};
-
-
-  cls.prototype.createReference = function createReference() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <returns type="IMemoryBufferReference" />
-    /// </signature>
-    return new IMemoryBufferReference();
-  }
-
-
-  cls.prototype.close = function close() {
-}
-
-
-  return cls;
-}) ();
-exports.MemoryBuffer = MemoryBuffer;
-
 WwwFormUrlDecoder = (function () {
   var cls = function WwwFormUrlDecoder() {
   };
@@ -663,17 +723,6 @@ var cls = function WwwFormUrlDecoder(query) {
 }) ();
 exports.WwwFormUrlDecoder = WwwFormUrlDecoder;
 
-IWwwFormUrlDecoderEntry = (function () {
-  var cls = function IWwwFormUrlDecoderEntry() {
-    this.name = new String();
-    this.value = new String();
-  };
-  
-
-  return cls;
-}) ();
-exports.IWwwFormUrlDecoderEntry = IWwwFormUrlDecoderEntry;
-
 WwwFormUrlDecoderEntry = (function () {
   var cls = function WwwFormUrlDecoderEntry() {
     this.name = new String();
@@ -684,25 +733,6 @@ WwwFormUrlDecoderEntry = (function () {
   return cls;
 }) ();
 exports.WwwFormUrlDecoderEntry = WwwFormUrlDecoderEntry;
-
-IGetActivationFactory = (function () {
-  var cls = function IGetActivationFactory() {
-  };
-  
-
-  cls.prototype.getActivationFactory = function getActivationFactory(activatableClassId) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="activatableClassId" type="String">A param.</param>
-    /// <returns type="Object" />
-    /// </signature>
-    return new Object();
-  }
-
-
-  return cls;
-}) ();
-exports.IGetActivationFactory = IGetActivationFactory;
 
 IPropertyValue = (function () {
   var cls = function IPropertyValue() {

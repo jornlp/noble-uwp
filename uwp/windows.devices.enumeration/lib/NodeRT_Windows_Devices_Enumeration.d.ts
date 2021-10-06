@@ -1,17 +1,17 @@
 declare module "windows.devices.enumeration" {
-  export class Color {
-    constructor();
-  }
-
   export class Rect {
     constructor();
   }
 
-  export enum DevicePickerDisplayStatusOptions {
-    none,
-    showProgress,
-    showDisconnectButton,
-    showRetryButton,
+  export class Color {
+    constructor();
+  }
+
+  export enum DeviceAccessStatus {
+    unspecified,
+    allowed,
+    deniedByUser,
+    deniedBySystem,
   }
 
   export enum DeviceClass {
@@ -24,25 +24,6 @@ declare module "windows.devices.enumeration" {
     location,
   }
 
-  export enum DeviceWatcherStatus {
-    created,
-    started,
-    enumerationCompleted,
-    stopping,
-    stopped,
-    aborted,
-  }
-
-  export enum Panel {
-    unknown,
-    front,
-    back,
-    top,
-    bottom,
-    left,
-    right,
-  }
-
   export enum DeviceInformationKind {
     unknown,
     deviceInterface,
@@ -52,12 +33,7 @@ declare module "windows.devices.enumeration" {
     associationEndpoint,
     associationEndpointContainer,
     associationEndpointService,
-  }
-
-  export enum DeviceWatcherEventKind {
-    add,
-    update,
-    remove,
+    devicePanel,
   }
 
   export enum DevicePairingKinds {
@@ -66,6 +42,14 @@ declare module "windows.devices.enumeration" {
     displayPin,
     providePin,
     confirmPinMatch,
+    providePasswordCredential,
+  }
+
+  export enum DevicePairingProtectionLevel {
+    default,
+    none,
+    encryption,
+    encryptionAndAuthentication,
   }
 
   export enum DevicePairingResultStatus {
@@ -91,6 +75,13 @@ declare module "windows.devices.enumeration" {
     failed,
   }
 
+  export enum DevicePickerDisplayStatusOptions {
+    none,
+    showProgress,
+    showDisconnectButton,
+    showRetryButton,
+  }
+
   export enum DeviceUnpairingResultStatus {
     unpaired,
     alreadyUnpaired,
@@ -99,40 +90,66 @@ declare module "windows.devices.enumeration" {
     failed,
   }
 
-  export enum DevicePairingProtectionLevel {
-    default,
-    none,
-    encryption,
-    encryptionAndAuthentication,
+  export enum DeviceWatcherEventKind {
+    add,
+    update,
+    remove,
   }
 
-  export enum DeviceAccessStatus {
-    unspecified,
-    allowed,
-    deniedByUser,
-    deniedBySystem,
+  export enum DeviceWatcherStatus {
+    created,
+    started,
+    enumerationCompleted,
+    stopping,
+    stopped,
+    aborted,
+  }
+
+  export enum Panel {
+    unknown,
+    front,
+    back,
+    top,
+    bottom,
+    left,
+    right,
+  }
+
+  export class DeviceAccessChangedEventArgs {
+    status: DeviceAccessStatus;
+    id: String;
+    constructor();
+
+  }
+
+  export class DeviceAccessInformation {
+    currentStatus: DeviceAccessStatus;
+    constructor();
+
+    static createFromId(deviceId: String): DeviceAccessInformation;
+
+
+    static createFromDeviceClassId(deviceClassId: String): DeviceAccessInformation;
+
+
+    static createFromDeviceClass(deviceClass: DeviceClass): DeviceAccessInformation;
+
+
+    addListener(type: "AccessChanged", listener: (ev: Event) => void): void ;
+    removeListener(type: "AccessChanged", listener: (ev: Event) => void): void ;
+    on(type: "AccessChanged", listener: (ev: Event) => void): void ;
+    off(type: "AccessChanged", listener: (ev: Event) => void): void ;
+    
+    addListener(type: string, listener: (ev: Event) => void): void ;
+    removeListener(type: string, listener: (ev: Event) => void): void ;
+    on(type: string, listener: (ev: Event) => void): void ;
+    off(type: string, listener: (ev: Event) => void): void ;
+    
+
   }
 
   export class DeviceConnectionChangeTriggerDetails {
     deviceId: String;
-    constructor();
-
-  }
-
-  export class DevicePickerAppearance {
-    title: String;
-    selectedForegroundColor: Object;
-    selectedBackgroundColor: Object;
-    selectedAccentColor: Object;
-    foregroundColor: Object;
-    backgroundColor: Object;
-    accentColor: Object;
-    constructor();
-
-  }
-
-  export class DeviceSelectedEventArgs {
-    selectedDevice: DeviceInformation;
     constructor();
 
   }
@@ -143,9 +160,126 @@ declare module "windows.devices.enumeration" {
 
   }
 
-  export class DevicePickerFilter {
-    supportedDeviceClasses: Object;
-    supportedDeviceSelectors: Object;
+  export class DeviceInformation {
+    enclosureLocation: EnclosureLocation;
+    id: String;
+    isDefault: Boolean;
+    isEnabled: Boolean;
+    name: String;
+    properties: Object;
+    kind: DeviceInformationKind;
+    pairing: DeviceInformationPairing;
+    constructor();
+
+    static createFromIdAsync(deviceId: String, additionalProperties: Object, kind: DeviceInformationKind, callback: (error: Error, result: DeviceInformation) => void): void ;
+    static createFromIdAsync(deviceId: String, callback: (error: Error, result: DeviceInformation) => void): void ;
+    static createFromIdAsync(deviceId: String, additionalProperties: Object, callback: (error: Error, result: DeviceInformation) => void): void ;
+
+
+    static findAllAsync(aqsFilter: String, additionalProperties: Object, kind: DeviceInformationKind, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
+    static findAllAsync(callback: (error: Error, result: DeviceInformationCollection) => void): void ;
+    static findAllAsync(deviceClass: DeviceClass, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
+    static findAllAsync(aqsFilter: String, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
+    static findAllAsync(aqsFilter: String, additionalProperties: Object, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
+
+
+    static getAqsFilterFromDeviceClass(deviceClass: DeviceClass): String;
+
+
+    static createWatcher(aqsFilter: String, additionalProperties: Object, kind: DeviceInformationKind): DeviceWatcher;
+    static createWatcher(): DeviceWatcher;
+    static createWatcher(deviceClass: DeviceClass): DeviceWatcher;
+    static createWatcher(aqsFilter: String): DeviceWatcher;
+    static createWatcher(aqsFilter: String, additionalProperties: Object): DeviceWatcher;
+
+
+    getThumbnailAsync(callback: (error: Error, result: DeviceThumbnail) => void): void ;
+
+    getGlyphThumbnailAsync(callback: (error: Error, result: DeviceThumbnail) => void): void ;
+
+    update(updateInfo: DeviceInformationUpdate): void;
+
+  }
+
+  export class DeviceInformationCollection {
+    constructor();
+
+    getAt(index: Number): DeviceInformation;
+
+    indexOf(value: DeviceInformation, index: Number): Boolean;
+
+    getMany();
+    first(): Object;
+
+  }
+
+  export class DeviceInformationCustomPairing {
+    constructor();
+
+    pairAsync(pairingKindsSupported: DevicePairingKinds, callback: (error: Error, result: DevicePairingResult) => void): void ;
+    pairAsync(pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel, callback: (error: Error, result: DevicePairingResult) => void): void ;
+    pairAsync(pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: IDevicePairingSettings, callback: (error: Error, result: DevicePairingResult) => void): void ;
+
+    addListener(type: "PairingRequested", listener: (ev: Event) => void): void ;
+    removeListener(type: "PairingRequested", listener: (ev: Event) => void): void ;
+    on(type: "PairingRequested", listener: (ev: Event) => void): void ;
+    off(type: "PairingRequested", listener: (ev: Event) => void): void ;
+    
+    addListener(type: string, listener: (ev: Event) => void): void ;
+    removeListener(type: string, listener: (ev: Event) => void): void ;
+    on(type: string, listener: (ev: Event) => void): void ;
+    off(type: string, listener: (ev: Event) => void): void ;
+    
+
+  }
+
+  export class DeviceInformationPairing {
+    canPair: Boolean;
+    isPaired: Boolean;
+    custom: DeviceInformationCustomPairing;
+    protectionLevel: DevicePairingProtectionLevel;
+    constructor();
+
+    static tryRegisterForAllInboundPairingRequestsWithProtectionLevel(pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel): Boolean;
+
+
+    static tryRegisterForAllInboundPairingRequests(pairingKindsSupported: DevicePairingKinds): Boolean;
+
+
+    pairAsync(callback: (error: Error, result: DevicePairingResult) => void): void ;
+    pairAsync(minProtectionLevel: DevicePairingProtectionLevel, callback: (error: Error, result: DevicePairingResult) => void): void ;
+    pairAsync(minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: IDevicePairingSettings, callback: (error: Error, result: DevicePairingResult) => void): void ;
+
+    unpairAsync(callback: (error: Error, result: DeviceUnpairingResult) => void): void ;
+
+  }
+
+  export class DeviceInformationUpdate {
+    id: String;
+    properties: Object;
+    kind: DeviceInformationKind;
+    constructor();
+
+  }
+
+  export class DevicePairingRequestedEventArgs {
+    deviceInformation: DeviceInformation;
+    pairingKind: DevicePairingKinds;
+    pin: String;
+    constructor();
+
+    accept(): void;
+    accept(pin: String): void;
+
+    getDeferral(): Object;
+
+    acceptWithPasswordCredential(passwordCredential: Object): void;
+
+  }
+
+  export class DevicePairingResult {
+    protectionLevelUsed: DevicePairingProtectionLevel;
+    status: DevicePairingResultStatus;
     constructor();
 
   }
@@ -189,6 +323,31 @@ declare module "windows.devices.enumeration" {
 
   }
 
+  export class DevicePickerAppearance {
+    title: String;
+    selectedForegroundColor: Object;
+    selectedBackgroundColor: Object;
+    selectedAccentColor: Object;
+    foregroundColor: Object;
+    backgroundColor: Object;
+    accentColor: Object;
+    constructor();
+
+  }
+
+  export class DevicePickerFilter {
+    supportedDeviceClasses: Object;
+    supportedDeviceSelectors: Object;
+    constructor();
+
+  }
+
+  export class DeviceSelectedEventArgs {
+    selectedDevice: DeviceInformation;
+    constructor();
+
+  }
+
   export class DeviceThumbnail {
     contentType: String;
     size: Number;
@@ -214,32 +373,9 @@ declare module "windows.devices.enumeration" {
     close(): void;
   }
 
-  export class EnclosureLocation {
-    inDock: Boolean;
-    inLid: Boolean;
-    panel: Panel;
-    rotationAngleInDegreesClockwise: Number;
+  export class DeviceUnpairingResult {
+    status: DeviceUnpairingResultStatus;
     constructor();
-
-  }
-
-  export class DeviceInformationUpdate {
-    id: String;
-    properties: Object;
-    kind: DeviceInformationKind;
-    constructor();
-
-  }
-
-  export class DeviceInformationCollection {
-    constructor();
-
-    getAt(index: Number): DeviceInformation;
-
-    indexOf(value: DeviceInformation, index: Number): Boolean;
-
-    getMany();
-    first(): Object;
 
   }
 
@@ -286,149 +422,6 @@ declare module "windows.devices.enumeration" {
 
   }
 
-  export class DeviceInformation {
-    enclosureLocation: EnclosureLocation;
-    id: String;
-    isDefault: Boolean;
-    isEnabled: Boolean;
-    name: String;
-    properties: Object;
-    kind: DeviceInformationKind;
-    pairing: DeviceInformationPairing;
-    constructor();
-
-    static createFromIdAsync(deviceId: String, additionalProperties: Object, kind: DeviceInformationKind, callback: (error: Error, result: DeviceInformation) => void): void ;
-    static createFromIdAsync(deviceId: String, callback: (error: Error, result: DeviceInformation) => void): void ;
-    static createFromIdAsync(deviceId: String, additionalProperties: Object, callback: (error: Error, result: DeviceInformation) => void): void ;
-
-
-    static findAllAsync(aqsFilter: String, additionalProperties: Object, kind: DeviceInformationKind, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
-    static findAllAsync(callback: (error: Error, result: DeviceInformationCollection) => void): void ;
-    static findAllAsync(deviceClass: DeviceClass, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
-    static findAllAsync(aqsFilter: String, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
-    static findAllAsync(aqsFilter: String, additionalProperties: Object, callback: (error: Error, result: DeviceInformationCollection) => void): void ;
-
-
-    static getAqsFilterFromDeviceClass(deviceClass: DeviceClass): String;
-
-
-    static createWatcher(aqsFilter: String, additionalProperties: Object, kind: DeviceInformationKind): DeviceWatcher;
-    static createWatcher(): DeviceWatcher;
-    static createWatcher(deviceClass: DeviceClass): DeviceWatcher;
-    static createWatcher(aqsFilter: String): DeviceWatcher;
-    static createWatcher(aqsFilter: String, additionalProperties: Object): DeviceWatcher;
-
-
-    getThumbnailAsync(callback: (error: Error, result: DeviceThumbnail) => void): void ;
-
-    getGlyphThumbnailAsync(callback: (error: Error, result: DeviceThumbnail) => void): void ;
-
-    update(updateInfo: DeviceInformationUpdate): void;
-
-  }
-
-  export class DevicePairingResult {
-    protectionLevelUsed: DevicePairingProtectionLevel;
-    status: DevicePairingResultStatus;
-    constructor();
-
-  }
-
-  export class DeviceUnpairingResult {
-    status: DeviceUnpairingResultStatus;
-    constructor();
-
-  }
-
-  export class IDevicePairingSettings {
-    constructor();
-
-  }
-
-  export class DevicePairingRequestedEventArgs {
-    deviceInformation: DeviceInformation;
-    pairingKind: DevicePairingKinds;
-    pin: String;
-    constructor();
-
-    accept(): void;
-    accept(pin: String): void;
-
-    getDeferral(): Object;
-
-  }
-
-  export class DeviceInformationCustomPairing {
-    constructor();
-
-    pairAsync(pairingKindsSupported: DevicePairingKinds, callback: (error: Error, result: DevicePairingResult) => void): void ;
-    pairAsync(pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel, callback: (error: Error, result: DevicePairingResult) => void): void ;
-    pairAsync(pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: IDevicePairingSettings, callback: (error: Error, result: DevicePairingResult) => void): void ;
-
-    addListener(type: "PairingRequested", listener: (ev: Event) => void): void ;
-    removeListener(type: "PairingRequested", listener: (ev: Event) => void): void ;
-    on(type: "PairingRequested", listener: (ev: Event) => void): void ;
-    off(type: "PairingRequested", listener: (ev: Event) => void): void ;
-    
-    addListener(type: string, listener: (ev: Event) => void): void ;
-    removeListener(type: string, listener: (ev: Event) => void): void ;
-    on(type: string, listener: (ev: Event) => void): void ;
-    off(type: string, listener: (ev: Event) => void): void ;
-    
-
-  }
-
-  export class DeviceInformationPairing {
-    canPair: Boolean;
-    isPaired: Boolean;
-    custom: DeviceInformationCustomPairing;
-    protectionLevel: DevicePairingProtectionLevel;
-    constructor();
-
-    static tryRegisterForAllInboundPairingRequests(pairingKindsSupported: DevicePairingKinds): Boolean;
-
-
-    pairAsync(callback: (error: Error, result: DevicePairingResult) => void): void ;
-    pairAsync(minProtectionLevel: DevicePairingProtectionLevel, callback: (error: Error, result: DevicePairingResult) => void): void ;
-    pairAsync(minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: IDevicePairingSettings, callback: (error: Error, result: DevicePairingResult) => void): void ;
-
-    unpairAsync(callback: (error: Error, result: DeviceUnpairingResult) => void): void ;
-
-  }
-
-  export class DeviceAccessChangedEventArgs {
-    status: DeviceAccessStatus;
-    id: String;
-    constructor();
-
-  }
-
-  export class DeviceAccessInformation {
-    currentStatus: DeviceAccessStatus;
-    constructor();
-
-    static createFromId(deviceId: String): DeviceAccessInformation;
-
-
-    static createFromDeviceClassId(deviceClassId: String): DeviceAccessInformation;
-
-
-    static createFromDeviceClass(deviceClass: DeviceClass): DeviceAccessInformation;
-
-
-    addListener(type: "AccessChanged", listener: (ev: Event) => void): void ;
-    removeListener(type: "AccessChanged", listener: (ev: Event) => void): void ;
-    on(type: "AccessChanged", listener: (ev: Event) => void): void ;
-    off(type: "AccessChanged", listener: (ev: Event) => void): void ;
-    
-    addListener(type: string, listener: (ev: Event) => void): void ;
-    removeListener(type: string, listener: (ev: Event) => void): void ;
-    on(type: string, listener: (ev: Event) => void): void ;
-    off(type: string, listener: (ev: Event) => void): void ;
-    
-
-  }
-
   export class DeviceWatcherEvent {
     deviceInformation: DeviceInformation;
     deviceInformationUpdate: DeviceInformationUpdate;
@@ -439,6 +432,20 @@ declare module "windows.devices.enumeration" {
 
   export class DeviceWatcherTriggerDetails {
     deviceWatcherEvents: Object;
+    constructor();
+
+  }
+
+  export class EnclosureLocation {
+    inDock: Boolean;
+    inLid: Boolean;
+    panel: Panel;
+    rotationAngleInDegreesClockwise: Number;
+    constructor();
+
+  }
+
+  export class IDevicePairingSettings {
     constructor();
 
   }

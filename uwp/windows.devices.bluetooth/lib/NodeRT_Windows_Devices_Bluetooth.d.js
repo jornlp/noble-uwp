@@ -1,8 +1,35 @@
+_BluetoothAddressType = function () {
+  this.public = 0;
+  this.random = 1;
+  this.unspecified = 2;
+}
+exports.BluetoothAddressType = new _BluetoothAddressType();
+
 _BluetoothCacheMode = function () {
   this.cached = 0;
   this.uncached = 1;
 }
 exports.BluetoothCacheMode = new _BluetoothCacheMode();
+
+_BluetoothConnectionStatus = function () {
+  this.disconnected = 0;
+  this.connected = 1;
+}
+exports.BluetoothConnectionStatus = new _BluetoothConnectionStatus();
+
+_BluetoothError = function () {
+  this.success = 0;
+  this.radioNotAvailable = 1;
+  this.resourceInUse = 2;
+  this.deviceNotConnected = 3;
+  this.otherError = 4;
+  this.disabledByPolicy = 5;
+  this.notSupported = 6;
+  this.disabledByUser = 7;
+  this.consentRequired = 8;
+  this.transportNotSupported = 9;
+}
+exports.BluetoothError = new _BluetoothError();
 
 _BluetoothMajorClass = function () {
   this.miscellaneous = 0;
@@ -107,33 +134,6 @@ _BluetoothServiceCapabilities = function () {
 }
 exports.BluetoothServiceCapabilities = new _BluetoothServiceCapabilities();
 
-_BluetoothConnectionStatus = function () {
-  this.disconnected = 0;
-  this.connected = 1;
-}
-exports.BluetoothConnectionStatus = new _BluetoothConnectionStatus();
-
-_BluetoothError = function () {
-  this.success = 0;
-  this.radioNotAvailable = 1;
-  this.resourceInUse = 2;
-  this.deviceNotConnected = 3;
-  this.otherError = 4;
-  this.disabledByPolicy = 5;
-  this.notSupported = 6;
-  this.disabledByUser = 7;
-  this.consentRequired = 8;
-  this.transportNotSupported = 9;
-}
-exports.BluetoothError = new _BluetoothError();
-
-_BluetoothAddressType = function () {
-  this.public = 0;
-  this.random = 1;
-  this.unspecified = 2;
-}
-exports.BluetoothAddressType = new _BluetoothAddressType();
-
 BluetoothAdapter = (function () {
   var cls = function BluetoothAdapter() {
     this.bluetoothAddress = new Number();
@@ -143,6 +143,8 @@ BluetoothAdapter = (function () {
     this.isClassicSupported = new Boolean();
     this.isLowEnergySupported = new Boolean();
     this.isPeripheralRoleSupported = new Boolean();
+    this.areClassicSecureConnectionsSupported = new Boolean();
+    this.areLowEnergySecureConnectionsSupported = new Boolean();
   };
   
 
@@ -183,46 +185,40 @@ BluetoothAdapter = (function () {
 }) ();
 exports.BluetoothAdapter = BluetoothAdapter;
 
-BluetoothDeviceId = (function () {
-  var cls = function BluetoothDeviceId() {
-    this.id = new String();
-    this.isClassicDevice = new Boolean();
-    this.isLowEnergyDevice = new Boolean();
+BluetoothClassOfDevice = (function () {
+  var cls = function BluetoothClassOfDevice() {
+    this.majorClass = new BluetoothMajorClass();
+    this.minorClass = new BluetoothMinorClass();
+    this.rawValue = new Number();
+    this.serviceCapabilities = new BluetoothServiceCapabilities();
   };
   
 
-  return cls;
-}) ();
-exports.BluetoothDeviceId = BluetoothDeviceId;
-
-BluetoothUuidHelper = (function () {
-  var cls = function BluetoothUuidHelper() {
-  };
-  
-
-  cls.fromShortId = function fromShortId(shortId) {
+  cls.fromRawValue = function fromRawValue(rawValue) {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="shortId" type="Number">A param.</param>
-    /// <returns type="String" />
+    /// <param name="rawValue" type="Number">A param.</param>
+    /// <returns type="BluetoothClassOfDevice" />
     /// </signature>
-    return new String();
+    return new BluetoothClassOfDevice();
   }
 
 
-  cls.tryGetShortId = function tryGetShortId(uuid) {
+  cls.fromParts = function fromParts(majorClass, minorClass, serviceCapabilities) {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="uuid" type="String">A param.</param>
-    /// <returns type="Number" />
+    /// <param name="majorClass" type="BluetoothMajorClass">A param.</param>
+    /// <param name="minorClass" type="BluetoothMinorClass">A param.</param>
+    /// <param name="serviceCapabilities" type="BluetoothServiceCapabilities">A param.</param>
+    /// <returns type="BluetoothClassOfDevice" />
     /// </signature>
-    return new Number();
+    return new BluetoothClassOfDevice();
   }
 
 
   return cls;
 }) ();
-exports.BluetoothUuidHelper = BluetoothUuidHelper;
+exports.BluetoothClassOfDevice = BluetoothClassOfDevice;
 
 BluetoothDevice = (function () {
   var cls = function BluetoothDevice() {
@@ -236,6 +232,8 @@ BluetoothDevice = (function () {
     this.sdpRecords = new Object();
     this.deviceInformation = new Object();
     this.deviceAccessInformation = new Object();
+    this.bluetoothDeviceId = new BluetoothDeviceId();
+    this.wasSecureConnectionUsedForPairing = new Boolean();
   };
   
 
@@ -374,12 +372,33 @@ cls.prototype.getRfcommServicesForIdAsync = function getRfcommServicesForIdAsync
 }) ();
 exports.BluetoothDevice = BluetoothDevice;
 
-BluetoothClassOfDevice = (function () {
-  var cls = function BluetoothClassOfDevice() {
-    this.majorClass = new BluetoothMajorClass();
-    this.minorClass = new BluetoothMinorClass();
+BluetoothDeviceId = (function () {
+  var cls = function BluetoothDeviceId() {
+    this.id = new String();
+    this.isClassicDevice = new Boolean();
+    this.isLowEnergyDevice = new Boolean();
+  };
+  
+
+  cls.fromId = function fromId(deviceId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="deviceId" type="String">A param.</param>
+    /// <returns type="BluetoothDeviceId" />
+    /// </signature>
+    return new BluetoothDeviceId();
+  }
+
+
+  return cls;
+}) ();
+exports.BluetoothDeviceId = BluetoothDeviceId;
+
+BluetoothLEAppearance = (function () {
+  var cls = function BluetoothLEAppearance() {
+    this.category = new Number();
     this.rawValue = new Number();
-    this.serviceCapabilities = new BluetoothServiceCapabilities();
+    this.subCategory = new Number();
   };
   
 
@@ -387,27 +406,26 @@ BluetoothClassOfDevice = (function () {
     /// <signature>
     /// <summary>Function summary.</summary>
     /// <param name="rawValue" type="Number">A param.</param>
-    /// <returns type="BluetoothClassOfDevice" />
+    /// <returns type="BluetoothLEAppearance" />
     /// </signature>
-    return new BluetoothClassOfDevice();
+    return new BluetoothLEAppearance();
   }
 
 
-  cls.fromParts = function fromParts(majorClass, minorClass, serviceCapabilities) {
+  cls.fromParts = function fromParts(appearanceCategory, appearanceSubCategory) {
     /// <signature>
     /// <summary>Function summary.</summary>
-    /// <param name="majorClass" type="BluetoothMajorClass">A param.</param>
-    /// <param name="minorClass" type="BluetoothMinorClass">A param.</param>
-    /// <param name="serviceCapabilities" type="BluetoothServiceCapabilities">A param.</param>
-    /// <returns type="BluetoothClassOfDevice" />
+    /// <param name="appearanceCategory" type="Number">A param.</param>
+    /// <param name="appearanceSubCategory" type="Number">A param.</param>
+    /// <returns type="BluetoothLEAppearance" />
     /// </signature>
-    return new BluetoothClassOfDevice();
+    return new BluetoothLEAppearance();
   }
 
 
   return cls;
 }) ();
-exports.BluetoothClassOfDevice = BluetoothClassOfDevice;
+exports.BluetoothLEAppearance = BluetoothLEAppearance;
 
 BluetoothLEAppearanceCategories = (function () {
   var cls = function BluetoothLEAppearanceCategories() {
@@ -477,39 +495,6 @@ BluetoothLEAppearanceSubcategories = (function () {
 }) ();
 exports.BluetoothLEAppearanceSubcategories = BluetoothLEAppearanceSubcategories;
 
-BluetoothLEAppearance = (function () {
-  var cls = function BluetoothLEAppearance() {
-    this.category = new Number();
-    this.rawValue = new Number();
-    this.subCategory = new Number();
-  };
-  
-
-  cls.fromRawValue = function fromRawValue(rawValue) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="rawValue" type="Number">A param.</param>
-    /// <returns type="BluetoothLEAppearance" />
-    /// </signature>
-    return new BluetoothLEAppearance();
-  }
-
-
-  cls.fromParts = function fromParts(appearanceCategory, appearanceSubCategory) {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// <param name="appearanceCategory" type="Number">A param.</param>
-    /// <param name="appearanceSubCategory" type="Number">A param.</param>
-    /// <returns type="BluetoothLEAppearance" />
-    /// </signature>
-    return new BluetoothLEAppearance();
-  }
-
-
-  return cls;
-}) ();
-exports.BluetoothLEAppearance = BluetoothLEAppearance;
-
 BluetoothLEDevice = (function () {
   var cls = function BluetoothLEDevice() {
     this.bluetoothAddress = new Number();
@@ -521,6 +506,8 @@ BluetoothLEDevice = (function () {
     this.bluetoothAddressType = new BluetoothAddressType();
     this.deviceInformation = new Object();
     this.deviceAccessInformation = new Object();
+    this.bluetoothDeviceId = new BluetoothDeviceId();
+    this.wasSecureConnectionUsedForPairing = new Boolean();
   };
   
 
@@ -690,4 +677,33 @@ BluetoothSignalStrengthFilter = (function () {
   return cls;
 }) ();
 exports.BluetoothSignalStrengthFilter = BluetoothSignalStrengthFilter;
+
+BluetoothUuidHelper = (function () {
+  var cls = function BluetoothUuidHelper() {
+  };
+  
+
+  cls.fromShortId = function fromShortId(shortId) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="shortId" type="Number">A param.</param>
+    /// <returns type="String" />
+    /// </signature>
+    return new String();
+  }
+
+
+  cls.tryGetShortId = function tryGetShortId(uuid) {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// <param name="uuid" type="String">A param.</param>
+    /// <returns type="Number" />
+    /// </signature>
+    return new Number();
+  }
+
+
+  return cls;
+}) ();
+exports.BluetoothUuidHelper = BluetoothUuidHelper;
 

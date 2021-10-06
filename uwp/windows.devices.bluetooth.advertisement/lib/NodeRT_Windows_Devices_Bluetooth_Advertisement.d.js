@@ -1,9 +1,3 @@
-_BluetoothLEScanningMode = function () {
-  this.passive = 0;
-  this.active = 1;
-}
-exports.BluetoothLEScanningMode = new _BluetoothLEScanningMode();
-
 _BluetoothLEAdvertisementFlags = function () {
   this.none = 0;
   this.limitedDiscoverableMode = 1;
@@ -13,6 +7,16 @@ _BluetoothLEAdvertisementFlags = function () {
   this.dualModeHostCapable = 5;
 }
 exports.BluetoothLEAdvertisementFlags = new _BluetoothLEAdvertisementFlags();
+
+_BluetoothLEAdvertisementPublisherStatus = function () {
+  this.created = 0;
+  this.waiting = 1;
+  this.started = 2;
+  this.stopping = 3;
+  this.stopped = 4;
+  this.aborted = 5;
+}
+exports.BluetoothLEAdvertisementPublisherStatus = new _BluetoothLEAdvertisementPublisherStatus();
 
 _BluetoothLEAdvertisementType = function () {
   this.connectableUndirected = 0;
@@ -32,47 +36,11 @@ _BluetoothLEAdvertisementWatcherStatus = function () {
 }
 exports.BluetoothLEAdvertisementWatcherStatus = new _BluetoothLEAdvertisementWatcherStatus();
 
-_BluetoothLEAdvertisementPublisherStatus = function () {
-  this.created = 0;
-  this.waiting = 1;
-  this.started = 2;
-  this.stopping = 3;
-  this.stopped = 4;
-  this.aborted = 5;
+_BluetoothLEScanningMode = function () {
+  this.passive = 0;
+  this.active = 1;
 }
-exports.BluetoothLEAdvertisementPublisherStatus = new _BluetoothLEAdvertisementPublisherStatus();
-
-BluetoothLEManufacturerData = (function () {
-  var cls = function BluetoothLEManufacturerData() {
-    this.data = new Object();
-    this.companyId = new Number();
-  };
-  
-var cls = function BluetoothLEManufacturerData(companyId, data) {
-      this.data = new Object();
-      this.companyId = new Number();
-};
-
-
-  return cls;
-}) ();
-exports.BluetoothLEManufacturerData = BluetoothLEManufacturerData;
-
-BluetoothLEAdvertisementDataSection = (function () {
-  var cls = function BluetoothLEAdvertisementDataSection() {
-    this.dataType = new Number();
-    this.data = new Object();
-  };
-  
-var cls = function BluetoothLEAdvertisementDataSection(dataType, data) {
-      this.dataType = new Number();
-      this.data = new Object();
-};
-
-
-  return cls;
-}) ();
-exports.BluetoothLEAdvertisementDataSection = BluetoothLEAdvertisementDataSection;
+exports.BluetoothLEScanningMode = new _BluetoothLEScanningMode();
 
 BluetoothLEAdvertisement = (function () {
   var cls = function BluetoothLEAdvertisement() {
@@ -126,6 +94,53 @@ var cls = function BluetoothLEAdvertisementBytePattern(dataType, offset, data) {
 }) ();
 exports.BluetoothLEAdvertisementBytePattern = BluetoothLEAdvertisementBytePattern;
 
+BluetoothLEAdvertisementDataSection = (function () {
+  var cls = function BluetoothLEAdvertisementDataSection() {
+    this.dataType = new Number();
+    this.data = new Object();
+  };
+  
+var cls = function BluetoothLEAdvertisementDataSection(dataType, data) {
+      this.dataType = new Number();
+      this.data = new Object();
+};
+
+
+  return cls;
+}) ();
+exports.BluetoothLEAdvertisementDataSection = BluetoothLEAdvertisementDataSection;
+
+BluetoothLEAdvertisementDataTypes = (function () {
+  var cls = function BluetoothLEAdvertisementDataTypes() {
+  };
+  
+
+  cls.advertisingInterval = new Number();
+  cls.appearance = new Number();
+  cls.completeLocalName = new Number();
+  cls.completeService128BitUuids = new Number();
+  cls.completeService16BitUuids = new Number();
+  cls.completeService32BitUuids = new Number();
+  cls.flags = new Number();
+  cls.incompleteService128BitUuids = new Number();
+  cls.incompleteService16BitUuids = new Number();
+  cls.incompleteService32BitUuids = new Number();
+  cls.manufacturerSpecificData = new Number();
+  cls.publicTargetAddress = new Number();
+  cls.randomTargetAddress = new Number();
+  cls.serviceData128BitUuids = new Number();
+  cls.serviceData16BitUuids = new Number();
+  cls.serviceData32BitUuids = new Number();
+  cls.serviceSolicitation128BitUuids = new Number();
+  cls.serviceSolicitation16BitUuids = new Number();
+  cls.serviceSolicitation32BitUuids = new Number();
+  cls.shortenedLocalName = new Number();
+  cls.slaveConnectionIntervalRange = new Number();
+  cls.txPowerLevel = new Number();
+  return cls;
+}) ();
+exports.BluetoothLEAdvertisementDataTypes = BluetoothLEAdvertisementDataTypes;
+
 BluetoothLEAdvertisementFilter = (function () {
   var cls = function BluetoothLEAdvertisementFilter() {
     this.advertisement = new BluetoothLEAdvertisement();
@@ -137,15 +152,64 @@ BluetoothLEAdvertisementFilter = (function () {
 }) ();
 exports.BluetoothLEAdvertisementFilter = BluetoothLEAdvertisementFilter;
 
-BluetoothLEAdvertisementWatcherStoppedEventArgs = (function () {
-  var cls = function BluetoothLEAdvertisementWatcherStoppedEventArgs() {
+BluetoothLEAdvertisementPublisher = (function () {
+  var cls = function BluetoothLEAdvertisementPublisher() {
+    this.advertisement = new BluetoothLEAdvertisement();
+    this.status = new BluetoothLEAdvertisementPublisherStatus();
+  };
+  
+var cls = function BluetoothLEAdvertisementPublisher(advertisement) {
+      this.advertisement = new BluetoothLEAdvertisement();
+      this.status = new BluetoothLEAdvertisementPublisherStatus();
+};
+
+
+  cls.prototype.start = function start() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+  cls.prototype.stop = function stop() {
+    /// <signature>
+    /// <summary>Function summary.</summary>
+    /// </signature>
+  }
+
+
+    cls.prototype.addListener = function addListener(eventName, callback){}
+    cls.prototype.removeListener = function removeListener(eventName, callback){}
+    cls.prototype.on = function on(eventName, callback){}
+    cls.prototype.off = function off(eventName, callback){}
+  return cls;
+}) ();
+exports.BluetoothLEAdvertisementPublisher = BluetoothLEAdvertisementPublisher;
+
+BluetoothLEAdvertisementPublisherStatusChangedEventArgs = (function () {
+  var cls = function BluetoothLEAdvertisementPublisherStatusChangedEventArgs() {
     this.error = new Number();
+    this.status = new BluetoothLEAdvertisementPublisherStatus();
   };
   
 
   return cls;
 }) ();
-exports.BluetoothLEAdvertisementWatcherStoppedEventArgs = BluetoothLEAdvertisementWatcherStoppedEventArgs;
+exports.BluetoothLEAdvertisementPublisherStatusChangedEventArgs = BluetoothLEAdvertisementPublisherStatusChangedEventArgs;
+
+BluetoothLEAdvertisementReceivedEventArgs = (function () {
+  var cls = function BluetoothLEAdvertisementReceivedEventArgs() {
+    this.advertisement = new BluetoothLEAdvertisement();
+    this.advertisementType = new BluetoothLEAdvertisementType();
+    this.bluetoothAddress = new Number();
+    this.rawSignalStrengthInDBm = new Number();
+    this.timestamp = new Date();
+  };
+  
+
+  return cls;
+}) ();
+exports.BluetoothLEAdvertisementReceivedEventArgs = BluetoothLEAdvertisementReceivedEventArgs;
 
 BluetoothLEAdvertisementWatcher = (function () {
   var cls = function BluetoothLEAdvertisementWatcher() {
@@ -193,93 +257,29 @@ var cls = function BluetoothLEAdvertisementWatcher(advertisementFilter) {
 }) ();
 exports.BluetoothLEAdvertisementWatcher = BluetoothLEAdvertisementWatcher;
 
-BluetoothLEAdvertisementReceivedEventArgs = (function () {
-  var cls = function BluetoothLEAdvertisementReceivedEventArgs() {
-    this.advertisement = new BluetoothLEAdvertisement();
-    this.advertisementType = new BluetoothLEAdvertisementType();
-    this.bluetoothAddress = new Number();
-    this.rawSignalStrengthInDBm = new Number();
-    this.timestamp = new Date();
-  };
-  
-
-  return cls;
-}) ();
-exports.BluetoothLEAdvertisementReceivedEventArgs = BluetoothLEAdvertisementReceivedEventArgs;
-
-BluetoothLEAdvertisementDataTypes = (function () {
-  var cls = function BluetoothLEAdvertisementDataTypes() {
-  };
-  
-
-  cls.advertisingInterval = new Number();
-  cls.appearance = new Number();
-  cls.completeLocalName = new Number();
-  cls.completeService128BitUuids = new Number();
-  cls.completeService16BitUuids = new Number();
-  cls.completeService32BitUuids = new Number();
-  cls.flags = new Number();
-  cls.incompleteService128BitUuids = new Number();
-  cls.incompleteService16BitUuids = new Number();
-  cls.incompleteService32BitUuids = new Number();
-  cls.manufacturerSpecificData = new Number();
-  cls.publicTargetAddress = new Number();
-  cls.randomTargetAddress = new Number();
-  cls.serviceData128BitUuids = new Number();
-  cls.serviceData16BitUuids = new Number();
-  cls.serviceData32BitUuids = new Number();
-  cls.serviceSolicitation128BitUuids = new Number();
-  cls.serviceSolicitation16BitUuids = new Number();
-  cls.serviceSolicitation32BitUuids = new Number();
-  cls.shortenedLocalName = new Number();
-  cls.slaveConnectionIntervalRange = new Number();
-  cls.txPowerLevel = new Number();
-  return cls;
-}) ();
-exports.BluetoothLEAdvertisementDataTypes = BluetoothLEAdvertisementDataTypes;
-
-BluetoothLEAdvertisementPublisherStatusChangedEventArgs = (function () {
-  var cls = function BluetoothLEAdvertisementPublisherStatusChangedEventArgs() {
+BluetoothLEAdvertisementWatcherStoppedEventArgs = (function () {
+  var cls = function BluetoothLEAdvertisementWatcherStoppedEventArgs() {
     this.error = new Number();
-    this.status = new BluetoothLEAdvertisementPublisherStatus();
   };
   
 
   return cls;
 }) ();
-exports.BluetoothLEAdvertisementPublisherStatusChangedEventArgs = BluetoothLEAdvertisementPublisherStatusChangedEventArgs;
+exports.BluetoothLEAdvertisementWatcherStoppedEventArgs = BluetoothLEAdvertisementWatcherStoppedEventArgs;
 
-BluetoothLEAdvertisementPublisher = (function () {
-  var cls = function BluetoothLEAdvertisementPublisher() {
-    this.advertisement = new BluetoothLEAdvertisement();
-    this.status = new BluetoothLEAdvertisementPublisherStatus();
+BluetoothLEManufacturerData = (function () {
+  var cls = function BluetoothLEManufacturerData() {
+    this.data = new Object();
+    this.companyId = new Number();
   };
   
-var cls = function BluetoothLEAdvertisementPublisher(advertisement) {
-      this.advertisement = new BluetoothLEAdvertisement();
-      this.status = new BluetoothLEAdvertisementPublisherStatus();
+var cls = function BluetoothLEManufacturerData(companyId, data) {
+      this.data = new Object();
+      this.companyId = new Number();
 };
 
 
-  cls.prototype.start = function start() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-  cls.prototype.stop = function stop() {
-    /// <signature>
-    /// <summary>Function summary.</summary>
-    /// </signature>
-  }
-
-
-    cls.prototype.addListener = function addListener(eventName, callback){}
-    cls.prototype.removeListener = function removeListener(eventName, callback){}
-    cls.prototype.on = function on(eventName, callback){}
-    cls.prototype.off = function off(eventName, callback){}
   return cls;
 }) ();
-exports.BluetoothLEAdvertisementPublisher = BluetoothLEAdvertisementPublisher;
+exports.BluetoothLEManufacturerData = BluetoothLEManufacturerData;
 

@@ -16,7 +16,7 @@ This module also contains TypeScript definition files for the API exposed by the
 
 Prequisites:
 ============
-* Visual Studio version 2015 and above. (Express Desktop versions also work!)
+* Visual Studio version 2019 and above. (Express Desktop versions also work!)
 * Python 2.7 (for node-gyp)
 * <b>Important:</b> Updated versions of npm and node-gyp. (Note that the ones that are bundled with node might not be up to date). In order to install latest npm, run:
 ```
@@ -36,11 +36,11 @@ In order to install this module, run npm install:
 npm install windows.foundation
 ```
 
-If you wish to rebuild this module using node-gyp, make sure to use the appropriate VS version using --msvs_version=2012/2013/2015 flag:
+If you wish to rebuild this module using node-gyp, make sure to use the appropriate VS version using --msvs_version=2012/2013/2015/2017 flag:
 
 For example:
 
 ```
 cd [module folder path]
-node-gyp rebuild --msvs_version=2015
+node-gyp rebuild --msvs_version=2019
 ```

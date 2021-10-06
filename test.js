@@ -1,3 +1,4 @@
+//var noble = require('noble-uwp');
 var noble = require('./index');
 
 // Flag to continuously scan advertisements
