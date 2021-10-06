@@ -1,6 +1,6 @@
 {
   "name": "windows.devices.radios",
-  "version": "0.15063.1",
+  "version": "0.15063.2",
   "description": "Use the Windows.Devices.Radios UWP API directly from Node.js",
   "main": "lib/main.js",
   "scripts" : {
@@ -41,7 +41,7 @@
   "binary": {
     "module_name": "binding",
     "module_path": "./binding/{node_abi}-{platform}-{arch}/",
-    "host": "https://github.com/jasongin/noble-uwp/releases/download/",
+    "host": "https://github.com/acstacey/noble-uwp/releases/download/",
     "remote_path": "windows_devices_radios_{version}"
   }
 }
